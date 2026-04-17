@@ -1,0 +1,47 @@
+.users-container {
+    padding: 40px;
+    color: white;
+}
+
+.page-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Table styling */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: white;
+}
+
+.users-table th {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.users-table tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Portfolio link */
+.portfolio-link {
+    color: #4da3ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.portfolio-link:hover {
+    text-decoration: underline;
+}

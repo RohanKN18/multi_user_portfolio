@@ -1,0 +1,85 @@
+/* =========================
+   RESET & GLOBAL BASE
+   ========================= */
+
+/* Universal reset */
+* {
+    box-sizing: border-box;
+}
+
+/* Root + Body reset */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Smooth scrolling + hide scrollbar (Firefox) */
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+
+/* =========================
+   BODY STYLING
+   ========================= */
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(3, 31, 3); /* Matrix green vibe */
+    font-family: 'Poppins', sans-serif;
+    /* Alternative: 'Inter', sans-serif */
+    scrollbar-width: none;
+}
+
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+
+/* Headings font */
+h1,
+h2 {
+    font-family: 'Fira Code', monospace;
+}
+
+
+/* =========================
+   LAYOUT SAFETY (NO OVERFLOW)
+   ========================= */
+
+img,
+div,
+section {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   SECTION SPACING
+   ========================= */
+
+#outercoverEduc,
+#skillsSection,
+#projectsContainer {
+    margin: clamp(60px, 10vh, 140px) auto;
+}
+
+
+
+
+/* =========================
+   SCROLLBAR CONTROL
+   ========================= */
+
+/* Hide scrollbar for specific section */
+#pageTwo {
+    scrollbar-width: none;
+}

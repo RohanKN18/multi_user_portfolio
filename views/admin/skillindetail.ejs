@@ -1,0 +1,117 @@
+<%- include("../includes/head.ejs"); %>
+
+<body>
+  <%- include("../includes/backgroundnoanimation.ejs"); %>
+  <div id="pageTwo">
+    <%- include("../includes/navbar.ejs"); %>
+    <%- include("../includes/intro.ejs"); %>
+    <%- include("../includes/education.ejs"); %>
+    <section id="skillsSection">
+
+      <%- include("../includes/skillsleft.ejs"); %>
+
+      <div id="skillsInDetail">
+        <div id="skillDetailHead">
+          <span class="skillNameHeading">
+            <%= selectedSkill.skillName %>
+          </span>
+          <a href="/<%= user.username %>/portfolio/skills/<%= selectedSkill.slug %>/addtopics" id="addDetailBtn">
+            + Add topic
+          </a>
+        </div>
+
+        <div id="skillDetailBody">
+
+          <% for (let topic of selectedSkill.topics) { %>
+          <div class="topicBox">
+
+            <div class="topicName">
+              <%= topic.topicName || "Topics" %>
+            </div>
+
+            <div class="topicActions">
+
+              <!-- Add Core Skill -->
+              <a href="/<%= user.username %>/portfolio/topics/<%= selectedSkill.slug %>/<%= topic._id %>/addcoreskill" class="actionBtn addBtn">
+                + Add
+              </a>
+
+              <!-- Edit Topic -->
+              <a href="/<%= user.username %>/portfolio/topics/<%=selectedSkill.slug%>/<%= topic._id %>/edit" class="actionBtn editBtn">
+                Edit
+              </a>
+
+              <!-- Delete Topic -->
+              <form method="POST" action="/<%= user.username %>/portfolio/topics/<%= selectedSkill.slug %>/<%= topic._id %>?_method=DELETE" class="inlineForm">
+
+                <button type="submit" class="actionBtn deleteBtn" onclick="return confirm('Delete this topic?')">
+                  Delete
+                </button>
+
+              </form>
+
+            </div>
+
+          </div>
+
+
+          <% if (topic.coreSkills && topic.coreSkills.length> 0) { %>
+          <% for (let core of topic.coreSkills) { %>
+          <div class="coreSkillBox">
+
+            <div class="coreSkillName">
+              <%= core.name %>
+            </div>
+
+            <div class="coreSkillActions">
+
+              <!-- Edit -->
+              <a href="/<%= user.username %>/portfolio/core/<%= selectedSkill.slug %>/<%= topic._id %>/<%= core._id %>/edit" class="coreBtn editBtn">
+                Edit
+              </a>
+
+              <!-- Delete -->
+              <form method="POST" action="/<%= user.username %>/portfolio/core/<%= selectedSkill.slug %>/<%= topic._id %>/<%= core._id %>?_method=DELETE">
+
+                <button type="submit" class="coreBtn deleteBtn">
+                  Delete
+                </button>
+
+              </form>
+
+            </div>
+
+          </div>
+          <% } %>
+          <% } %>
+
+          <% } %>
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+    <%- include("../includes/projects.ejs"); %>
+
+  </div>
+  <script src="app.js" type="module"></script>
+  <script>
+    const sectionId = "<%= scrollTo %>";
+    if (sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    }
+  </script>
+
+  <%- include("../includes/footer.ejs"); %>
+  <%- include("../includes/jsscript.ejs"); %>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<%- include("../includes/head.ejs"); %>
+
+<body>
+  <%- include("../includes/backgroundnoanimation.ejs"); %>
+  <div id="pageTwo">
+
+
+
+    <div id="projectPage">
+
+      <div class="projectHeader">
+
+        <h1 class="projectTitle"><%= project.projectName %></h1>
+
+        <a href="/<%= user.username %>/portfolio/projects/<%= project._id %>/edit" class="editProjectBtn">
+          Edit
+        </a>
+
+      </div>
+
+      <!-- TITLE -->
+      <h1 class="projectTitle"><%= project.projectName %></h1>
+
+
+      <!-- MEDIA -->
+      <div class="mediaWrapper">
+
+        <% if(project.video){ %>
+
+        <video controls autoplay muted loop>
+          <source src="<%= project.video %>" type="video/mp4">
+        </video>
+
+        <% } else { %>
+
+        <img src="<%= project.image || '/images/project-placeholder.jpg' %>">
+
+        <% } %>
+
+      </div>
+
+
+      <!-- MAIN INFO CARD -->
+      <div class="projectCardDetail">
+
+        <!-- DESCRIPTION -->
+        <section class="description">
+          <h2>Description</h2>
+          <p><%= project.description %></p>
+        </section>
+
+
+        <!-- TECH STACK -->
+        <section class="techStack">
+          <h2>Tech Stack</h2>
+
+          <div class="tags">
+
+            <% project.techStack.languages.forEach(l=>{ %>
+            <span><%= l %></span>
+            <% }) %>
+
+            <% project.techStack.frameworks.forEach(f=>{ %>
+            <span><%= f %></span>
+            <% }) %>
+
+            <% project.techStack.databases.forEach(d=>{ %>
+            <span><%= d %></span>
+            <% }) %>
+
+            <% project.techStack.tools.forEach(t=>{ %>
+            <span><%= t %></span>
+            <% }) %>
+
+          </div>
+        </section>
+
+
+        <!-- FEATURES -->
+        <section class="features">
+          <h2>Features</h2>
+          <ul>
+            <% project.features.forEach(f=>{ %>
+            <li><%= f %></li>
+            <% }) %>
+          </ul>
+        </section>
+
+
+        <!-- HIGHLIGHTS -->
+        <section class="highlights">
+          <h2>Highlights</h2>
+          <ul>
+            <% project.highlights.forEach(h=>{ %>
+            <li><%= h %></li>
+            <% }) %>
+          </ul>
+        </section>
+
+
+        <!-- META INFO -->
+        <section class="meta">
+
+          <div><strong>Role:</strong> <%= project.role %></div>
+          <div><strong>Status:</strong> <%= project.status %></div>
+          <div><strong>Duration:</strong> <%= project.startDate %> → <%= project.endDate %></div>
+
+        </section>
+
+
+        <!-- LINKS -->
+        <section class="links">
+
+          <% if(project.githubLink){ %>
+          <a href="<%= project.githubLink %>" target="_blank">GitHub</a>
+          <% } %>
+
+          <% if(project.liveLink){ %>
+          <a href="<%= project.liveLink %>" target="_blank">Live Demo</a>
+          <% } %>
+
+        </section>
+
+      </div>
+
+    </div>
+
+
+  </div>
+  <script src="app.js" type="module"></script>
+  <%- include("../includes/footer.ejs"); %>
+  <%- include("../includes/jsscript.ejs"); %>
+</body>
+
+</html>

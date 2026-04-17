@@ -1,0 +1,33 @@
+<div id="greetingBox">
+
+  <% if (!greeting || !greeting.name) { %>
+
+    <div class="greetingEmpty">
+      <a href="/<%= user.username %>/portfolio/editintro" class="addGreetingBtn">
+        + Add Intro
+      </a>
+    </div>
+
+  <% } else { %>
+
+    <a href="/<%= user.username %>/portfolio/editintro" id="editGreetingBtn">Edit</a>
+
+    <div class="greetingRow" id="hiRow">
+      <h1><%= greeting.hi %></h1>
+    </div>
+
+    <div class="greetingRow" id="introRow">
+      <h1>I'm <span id="ron"><%= greeting.name %></span></h1>
+    </div>
+
+    <div class="greetingRow" id="extraIntroRow">
+      <h1><%= greeting.title %></h1>
+    </div>
+
+    <div class="greetingRow" id="descriptionRow">
+      <h4><%= greeting.description %></h4>
+    </div>
+
+  <% } %>
+
+</div>

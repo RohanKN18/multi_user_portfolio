@@ -1,0 +1,37 @@
+<div id="projectsContainer">
+
+  <div id="projectsHeading">Projects</div>
+
+  <div id="projectsGrid">
+
+    <% projects.forEach(project => { %>
+
+    <a href="/<%= user.username %>/publicportfolio/projects/<%= project.projectSlug %>" class="projectCard">
+
+      <!-- TOP MEDIA -->
+      <div class="projectMedia">
+        <img src="<%= project.image %>" alt="<%= project.projectName %>">
+      </div>
+
+      <!-- BOTTOM DETAILS -->
+      <div class="projectInfo">
+
+        <h3><%= project.projectName %></h3>
+
+        <p><%= project.description %></p>
+
+        <div class="projectTags">
+          <% project.techStack.languages.forEach(lang=>{ %>
+          <span><%= lang %></span>
+          <% }) %>
+        </div>
+
+      </div>
+
+    </a>
+
+    <% }) %>
+
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+<section id="skillsSection">
+
+  <div id="skills">
+    <div id="skillsHead">
+      <span id="headingskills">Skills</span>
+    </div>
+    <div id="skillsbody">
+      <% for (let skill of skills) { %>
+      <div class="skillItemWrapper">
+        <a class="skillItem" href="/<%= user.username %>/publicportfolio/skills/<%= skill.slug %>">
+          <div class="skillsName"><%= skill.skillName %> </div>
+        </a>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+
+  <div id="skillsInDetail">
+
+  </div>
+
+
+</section>

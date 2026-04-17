@@ -1,0 +1,25 @@
+<%- include("../../includes/head.ejs"); %>
+<body style="padding-top:0%;">
+<%- include("../../includes/backgroundnoanimation.ejs"); %>
+<div class="formtopicBox">
+
+<form method="POST"
+      action="/<%= user.username %>S/portfolio/topics/<%=selectedSkill.slug%>/<%=topic._id %>?_method=PUT">
+
+    <h1>Edit Topic</h1>
+
+    <input
+        type="text"
+        name="topicName"
+        value="<%=  topic.topicName %> %>"
+        required
+    >
+
+    <button type="submit">Save</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

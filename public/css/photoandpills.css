@@ -1,0 +1,207 @@
+/* =========================================================
+   HOME PAGE - HERO SECTION (PHOTO + INTRO)
+========================================================= */
+
+/* ================= PHOTO CONTAINER ================= */
+#photoContainer {
+    position: fixed;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90%;
+    max-width: 700px;
+    aspect-ratio: 700 / 301;
+
+    z-index: 10;
+    animation: photoContainerAnimation 8s ease-in;
+}
+
+
+/* ================= PHOTO ================= */
+#photo {
+    width: 100%;
+    height: 100%;
+
+    border: 2px solid rgb(26, 100, 26);
+    border-radius: 10px;
+
+    background-image: url(assets/redblue.jpg);
+    background-size: cover;
+    background-position: center;
+
+    object-fit: cover;
+}
+
+
+/* ================= PHOTO ENTRY ANIMATION ================= */
+@keyframes photoContainerAnimation {
+    0% {
+        transform: translate(-50%, -200%) scale(0.95);
+        opacity: 0;
+        filter: blur(12px);
+    }
+
+    60% {
+        transform: translate(-50%, 8%) scale(1.02);
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    80% {
+        transform: translate(-50%, -3%) scale(0.995);
+    }
+
+    100% {
+        transform: translate(-50%, 0%) scale(1);
+    }
+}
+
+
+/* =========================================================
+   PILLS SECTION (CHOICE UI)
+========================================================= */
+
+#pillsContainer {
+    position: absolute;
+    top: 75%;
+
+    width: 100%;
+    height: 25%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+/* ================= COMMON PILL STYLE ================= */
+#bluePill,
+.redPill {
+    height: clamp(35px,6vw,50px);
+    width: clamp(70px,12vw,100px);
+
+    border-radius: 50%;
+    z-index: 1;
+}
+
+
+/* ================= BLUE PILL ================= */
+#bluePill {
+    background-color: rgba(41, 190, 207, 0.9);
+    border-color: rgba(41, 190, 207, 0.9);
+
+    visibility: visible;
+    animation: bluePillAnimation 6s ease-in;
+}
+
+@keyframes bluePillAnimation {
+    0%, 30% { visibility: hidden; }
+    33% { visibility: visible; }
+}
+
+
+/* ================= RED PILL ================= */
+.redPill {
+    background-color: rgb(159, 64, 83);
+    border-color: rgb(159, 64, 83);
+
+    visibility: visible;
+    animation: redPillAnimation 6s ease-in;
+}
+
+@keyframes redPillAnimation {
+    0%, 61.5% { visibility: hidden; }
+    64.5% { visibility: visible; }
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+/* MOBILE */
+@media (max-width:600px){
+
+    #photoContainer {
+        height: 40%;
+    }
+
+    #questionContainer {
+        top: 40%;
+        height: 35%;
+    }
+
+    #pillsContainer {
+        top: 75%;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #question {
+        width: 90vw;
+    }
+}
+
+
+/* TABLET */
+@media (min-width:601px) and (max-width:1000px){
+
+    #photoContainer {
+        height: 45%;
+    }
+
+    #questionContainer {
+        top: 45%;
+        height: 30%;
+    }
+
+    #pillsContainer {
+        top: 75%;
+    }
+}
+
+
+/* =========================================================
+   GLOBAL OVERRIDES
+========================================================= */
+
+/* prevent horizontal scroll */
+body {
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   MATRIX EXIT ANIMATION (GLOBAL EFFECT)
+========================================================= */
+
+.matrixExit *:not(#background):not(#background *) {
+    animation: shrinkAway 1.2s ease forwards;
+}
+
+@keyframes shrinkAway {
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Optional cinematic version */
+/*
+@keyframes shrinkAway{
+    40%{
+        transform: scale(1.2);
+        filter: blur(2px);
+    }
+    100%{
+        transform: scale(0);
+        opacity:0;
+        filter: blur(8px);
+    }
+}
+*/

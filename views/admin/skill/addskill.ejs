@@ -1,0 +1,23 @@
+<%- include("../../includes/head.ejs"); %>
+
+    <body style="padding-top:0%;">
+        <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+        <div class="skillBox">
+
+            <form class="skillForm" action="/<%= user.username %>/portfolio/addskill" method="POST">
+
+                <h1>cheack out the big brain on brett</h1>
+
+                <div class="skillImg"></div>
+
+                <input type="text" name="skill" placeholder="Enter new skill..." required>
+
+                <button type="submit">Add Skill</button>
+
+            </form>
+
+        </div>
+    </body>
+
+    </html>

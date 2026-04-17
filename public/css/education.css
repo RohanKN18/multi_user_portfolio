@@ -1,0 +1,320 @@
+/* =========================================================
+   EDUCATION & CAREER TIMELINE
+========================================================= */
+
+/* ================= MAIN CONTAINER ================= */
+#outercoverEduc {
+    position: relative;
+
+    margin: 15vh auto;
+    width: 80vw;
+    max-width: 1400px;
+    min-height: 60vh;
+
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-right: 2px solid rgb(84,165,84);
+    scrollbar-width: none;
+
+    scroll-margin-top: 15vh;
+
+    box-shadow:
+        inset -6px 0 12px rgba(106,220,106,0.6),
+        inset -12px 0 20px rgba(106,220,106,0.35);
+}
+
+
+/* =========================================================
+   ENTRY ANIMATION (SLIDE-IN)
+========================================================= */
+
+#outercoverEduc > * {
+    opacity: 0;
+    transform: translateX(120px);
+
+    transition:
+        transform 0.8s cubic-bezier(.22,.61,.36,1),
+        opacity 0.8s ease;
+}
+
+#outercoverEduc.show > * {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* stagger animation */
+#outercoverEduc.show > *:nth-child(1){ transition-delay:.1s }
+#outercoverEduc.show > *:nth-child(2){ transition-delay:.2s }
+#outercoverEduc.show > *:nth-child(3){ transition-delay:.3s }
+#outercoverEduc.show > *:nth-child(4){ transition-delay:.4s }
+#outercoverEduc.show > *:nth-child(5){ transition-delay:.5s }
+
+
+/* =========================================================
+   COLUMN STRUCTURE
+========================================================= */
+
+.columnodd,
+.columneven {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 220px;
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   BOX STRUCTURE
+========================================================= */
+
+.box {
+    display: flex;
+    min-height: 90px;
+}
+
+.topbottombox {
+    min-height: 45px;
+}
+
+
+/* =========================================================
+   INNER BOXES
+========================================================= */
+
+.innerBox {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #6aff6a;
+    font-size: 1.8vh;
+    text-align: center;
+}
+
+.innerBox p {
+    margin: 0;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CONTENT CARD (SPECIAL BOX)
+========================================================= */
+
+.specialbox {
+    width: 100%;
+    height: 100%;
+
+    padding: clamp(6px,1vh,14px);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background: rgba(84,165,84,0.18);
+    border: 1.5px solid #5fdc5f;
+
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.specialbox:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #5fdc5f;
+}
+
+
+/* ================= TEXT ================= */
+.yoEducDetail {
+    margin: clamp(2px,0.5vh,8px) 0;
+
+    color: #d6ffd6;
+    font-size: clamp(12px,1.5vw,16px);
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    line-height: 1.3;
+
+    word-break: break-word;
+}
+
+.yoEducDetail:first-child {
+    font-size: clamp(14px,1.9vw,20px);
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   BORDER CONNECTION LOGIC (TIMELINE LINES)
+========================================================= */
+
+/* EVEN */
+.evenboxthree .leftinnerbox {
+    border-top: 2px solid #5fdc5f;
+    border-right: 2px solid #5fdc5f;
+}
+
+.evenboxfour .leftinnerbox {
+    border-right: 2px solid #5fdc5f;
+}
+
+.evenboxfour .rightinnerbox {
+    border-bottom: 2px solid #5fdc5f;
+}
+
+/* ODD */
+.oddboxfour .leftinnerbox {
+    border-bottom: 2px solid #5fdc5f;
+    border-right: 2px solid #5fdc5f;
+}
+
+.oddboxthree .leftinnerbox {
+    border-right: 2px solid #5fdc5f;
+}
+
+.oddboxthree .rightinnerbox {
+    border-top: 2px solid #5fdc5f;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px){
+
+    #outercoverEduc {
+        width: 95vw;
+        margin: 5vh auto;
+    }
+
+    .columnodd,
+    .columneven {
+        min-width: 180px;
+    }
+
+    .box {
+        min-height: 70px;
+    }
+
+    .topbottombox {
+        min-height: 35px;
+    }
+
+    .yoEducDetail {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 600px){
+
+    .specialbox {
+        padding: 6px 4px;
+    }
+
+    .yoEducDetail {
+        font-size: 12px;
+        line-height: 1.2;
+        hyphens: auto;
+    }
+
+    .yoEducDetail:first-child {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ADMIN CONTROLS (EDIT BUTTONS)
+========================================================= */
+
+/* container */
+#educEditBtnContainer {
+    position: sticky;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+
+    height: fit-content;
+}
+
+/* edit button */
+#editEducBtn {
+    padding: 8px 16px;
+    border-radius: 6px;
+
+    background: rgb(3,31,3);
+    border: 1px solid rgb(84,165,84);
+    color: rgb(84,165,84);
+
+    font-size: 14px;
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+#editEducBtn:hover {
+    background: rgb(84,165,84);
+    color: rgb(3,31,3);
+    box-shadow: 0 0 10px rgb(84,165,84);
+    transform: scale(1.05);
+}
+
+
+/* ================= ADD ENTRY BUTTON ================= */
+#addEntryBtn {
+    padding: 8px 14px;
+
+    border: 1px solid rgb(84,165,84);
+    border-radius: 6px;
+
+    color: rgb(84,165,84);
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+#addEntryBtn:hover {
+    background: rgb(84,165,84);
+    color: rgb(3,31,3);
+}
+
+
+/* ================= DELETE BUTTON ================= */
+.edeleteBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    padding: 4px 10px;
+    border-radius: 5px;
+
+    border: 1px solid rgb(255,80,80);
+    background: rgba(255,80,80,0.08);
+    color: rgb(255,80,80);
+
+    font-size: 14px;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.edeleteBtn:hover {
+    background: rgb(255,80,80);
+    color: rgb(3,31,3);
+    box-shadow: 0 0 8px rgb(255,80,80);
+    transform: scale(1.08);
+}
+
+.formCard {
+    position: relative;
+}

@@ -1,0 +1,158 @@
+/* =========================================================
+   LOGIN PAGE (AUTH MODULE)
+========================================================= */
+
+/* ================= LOGIN CONTAINER ================= */
+.loginBox {
+    position: relative;
+
+    width: 80vw;
+    max-width: 800px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+    border-radius: 20px;
+
+    backdrop-filter: blur(6px);
+    box-shadow:
+        0 0 20px rgba(0,255,0,0.4),
+        inset 0 0 20px rgba(0,255,0,0.2);
+
+    scroll-margin-top: 15vh;
+}
+
+
+/* ================= LOGIN FORM ================= */
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+
+/* =========================================================
+   LOGIN VISUALS (IMAGES)
+========================================================= */
+
+/* success / default image */
+#loginPhotocontainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#loginPhoto {
+    width: 100%;
+    aspect-ratio: 1500 / 746;
+
+    background-image: url(assets/login.jpg);
+    background-size: cover;
+    background-position: center;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+/* fail image */
+#loginfailPhotocontainer {
+    width: 100%;
+    max-width: 800px;
+
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#loginfailPhoto {
+    width: 50%;
+    aspect-ratio: 1024 / 576;
+
+    background-image: url(assets/idareu.webp);
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.loginForm input {
+    padding: 15px 20px;
+    width: fit-content;
+
+    border: none;
+    outline: none;
+    border-radius: 10px;
+
+    background: rgba(0,0,0,0.8);
+    color: #6aff6a;
+
+    font-size: 18px;
+    text-align: center;
+
+    box-shadow: 0 0 10px rgba(0,255,0,0.4) inset;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.loginForm button {
+    padding: 12px 40px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #00ff00;
+    color: black;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.loginForm button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #00ff00;
+}
+
+
+/* =========================================================
+   LOGIN MESSAGE (FEEDBACK TEXT)
+========================================================= */
+
+.loginMessage {
+    text-align: center;
+    font-size: 1rem;
+    color: #546A40;
+
+    margin: 0;
+    padding: 0 10px;
+
+    word-wrap: break-word;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* very small screens */
+@media (max-width: 400px) {
+    .loginMessage {
+        font-size: 0.9rem;
+    }
+}

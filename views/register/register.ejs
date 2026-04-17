@@ -1,0 +1,37 @@
+<%- include("../includes/head.ejs"); %>
+
+<body style="padding-top:0%;">
+
+  <%- include("../includes/backgroundnoanimation.ejs"); %>
+
+
+  <div class="register-page">
+    <div class="register-container">
+      <h2 class="register-title">Register</h2>
+
+      <form action="/register" method="POST" class="register-form">
+        <input type="text" name="username" placeholder="Enter Username" class="register-input" required />
+
+        <input type="email" name="email" placeholder="Enter Email" class="register-input" required />
+
+        <input type="password" name="password" placeholder="Enter Password" class="register-input" required />
+
+        <button type="submit" class="register-btn">
+          Register
+        </button>
+      </form>
+
+      <div class="register-link">
+        <p>
+          Already have an account?
+          <a href="/login" class="register-anchor">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="app.js" type="module"></script>
+</body>
+
+</html>

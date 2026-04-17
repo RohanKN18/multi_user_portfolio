@@ -1,0 +1,81 @@
+<%- include("../../includes/head.ejs"); %>
+
+<body>
+  <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+  <div id="editProjectPage">
+
+    <h1>Edit Project</h1>
+
+    <form action="/<%= user.username %>/portfolio/projects/<%= project._id %>/edit" method="POST">
+
+      <!-- PROJECT NAME -->
+      <label>Project Name</label>
+      <input type="text" name="projectName" value="<%= project.projectName %>" required>
+
+      <!-- SLUG -->
+      <label>Project Slug</label>
+      <input type="text" name="projectSlug" value="<%= project.projectSlug %>" required>
+
+      <!-- DESCRIPTION -->
+      <label>Description</label>
+      <textarea name="description"><%= project.description %></textarea>
+
+      <!-- IMAGE -->
+      <label>Image Path</label>
+      <input type="text" name="image" value="<%= project.image %>">
+
+      <!-- GITHUB -->
+      <label>GitHub Link</label>
+      <input type="text" name="githubLink" value="<%= project.githubLink %>">
+
+      <!-- LIVE -->
+      <label>Live Link</label>
+      <input type="text" name="liveLink" value="<%= project.liveLink %>">
+
+      <!-- ROLE -->
+      <label>Role</label>
+      <input type="text" name="role" value="<%= project.role %>">
+
+      <!-- STATUS -->
+      <label>Status</label>
+      <input type="text" name="status" value="<%= project.status %>">
+
+      <!-- DATES -->
+      <label>Start Date</label>
+      <input type="month" name="startDate" value="<%= project.startDate %>">
+
+      <label>End Date</label>
+      <input type="month" name="endDate" value="<%= project.endDate %>">
+
+      <!-- TECH STACK -->
+      <label>Languages (comma separated)</label>
+      <input type="text" name="languages" value="<%= project.techStack.languages.join(', ') %>">
+
+      <label>Frameworks</label>
+      <input type="text" name="frameworks" value="<%= project.techStack.frameworks.join(', ') %>">
+
+      <label>Databases</label>
+      <input type="text" name="databases" value="<%= project.techStack.databases.join(', ') %>">
+
+      <label>Tools</label>
+      <input type="text" name="tools" value="<%= project.techStack.tools.join(', ') %>">
+
+      <!-- FEATURES -->
+      <label>Features (comma separated)</label>
+      <input type="text" name="features" value="<%= project.features.join(', ') %>">
+
+      <!-- HIGHLIGHTS -->
+      <label>Highlights (comma separated)</label>
+      <input type="text" name="highlights" value="<%= project.highlights.join(', ') %>">
+
+      <button type="submit">Update Project</button>
+
+    </form>
+
+  </div>
+
+  <%- include("../../includes/footer.ejs"); %>
+</body>
+
+</html>

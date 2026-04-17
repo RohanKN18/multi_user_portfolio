@@ -1,0 +1,68 @@
+<%- include("../includes/head.ejs"); %>
+
+<body>
+
+  <%- include("../includes/backgroundnoanimation.ejs"); %>
+
+  <div id="pageTwo">
+    <%- include("../includes/publicnavbar.ejs"); %>
+    <%- include("../includes/publicintro.ejs"); %>
+    <%- include("../includes/publiceducation.ejs"); %>
+    <section id="skillsSection">
+
+      <%- include("../includes/publicskillsleft.ejs"); %>
+
+      <div id="skillsInDetail">
+        <div id="skillDetailHead">
+          <span class="skillNameHeading">
+            <%= selectedSkill.skillName %>
+          </span>
+        </div>
+
+        <div id="skillDetailBody">
+
+          <% for (let topic of selectedSkill.topics) { %>
+          <div class="topicBox">
+            <div class="topicName"><%= topic.topicName || "Topics" %></div>
+          </div>
+
+          <% if (topic.coreSkills && topic.coreSkills.length> 0) { %>
+          <% for (let core of topic.coreSkills) { %>
+          <div class="coreSkillBox">
+            <div class="coreSkillName"><%= core.name %> </div>
+          </div>
+          <% } %>
+          <% } else { %>
+          <div class="coreSkillBox">
+            <div class="coreSkillName">No core skills yet</div>
+          </div>
+          <% } %>
+
+          <% } %>
+
+        </div>
+
+
+      </div>
+
+    </section>
+    <%- include("../includes/publicprojects.ejs"); %>
+
+  </div>
+  <script src="app.js" type="module"></script>
+  <script>
+    const sectionId = "<%= scrollTo %>";
+    if (sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    }
+  </script>
+  <%- include("../includes/publicfooter.ejs"); %>
+  <%- include("../includes/jsscript.ejs"); %>
+</body>
+
+</html>

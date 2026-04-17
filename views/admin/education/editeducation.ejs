@@ -1,0 +1,56 @@
+<%- include("../../includes/head.ejs"); %>
+
+<body>
+
+  <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+  <div class="editContainer">
+
+    <div class="topBar">
+      <h1>Edit Education</h1>
+      <a href="/<%= user.username %>/portfolio/editeducation/addeducation" id="addEntryBtn">+ Add</a>
+    </div>
+
+    <form action="/<%= user.username %>/portfolio/editeducation" method="POST">
+
+      <% education.forEach((edu, index) => { %>
+
+      <div class="formCard">
+
+        <!-- 🔥 ADD THIS LINE -->
+        <input type="hidden" name="education[<%= index %>][_id]" value="<%= edu._id %>">
+
+        <!-- DELETE BUTTON -->
+        <a href="/<%= user.username %>/portfolio/editeducation/deleteeducation/<%= edu._id %>" class="edeleteBtn">delete✖</a>
+
+        <h3>Entry <%= index + 1 %></h3>
+
+        <div class="formGroup">
+          <label>Level</label>
+          <input type="text" name="education[<%= index %>][level]" value="<%= edu.level %>">
+        </div>
+
+        <div class="formGroup">
+          <label>School</label>
+          <input type="text" name="education[<%= index %>][school]" value="<%= edu.school %>">
+        </div>
+
+        <div class="formGroup">
+          <label>Score</label>
+          <input type="text" name="education[<%= index %>][score]" value="<%= edu.score %>">
+        </div>
+
+      </div>
+
+      <% }) %>
+
+      <button type="submit">Save Changes</button>
+
+    </form>
+
+  </div>
+
+  <%- include("../../includes/footer.ejs"); %>
+</body>
+
+</html>

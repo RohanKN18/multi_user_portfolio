@@ -1,0 +1,24 @@
+<footer id="footer" class="footer">
+    <div class="footerContent">
+
+        <!-- Contact -->
+        <p>📧 Email: <%= footer?.contact?.email || "" %></p>
+        <p>📞 Phone: <%= footer?.contact?.phone || "" %></p>
+
+        <!-- Social Links -->
+        <div class="socialLinks">
+            <% (footer?.socialLinks || []).forEach(link => { %>
+                <a href="<%= link %>" target="_blank">
+                    <%= link %>
+                </a>
+            <% }) %>
+        </div>
+
+        <!-- Copyright -->
+        <p class="copyright">
+            © <%= footer?.copyright?.year || "" %>
+            <%= footer?.copyright?.name || "" %>
+        </p>
+
+    </div>
+</footer>

@@ -1,0 +1,83 @@
+  <section id="outercoverEduc">
+    <div id="educEditBtnContainer">
+      <a href="/<%= user.username %>/portfolio/editeducation" id="editEducBtn">Edit</a>
+    </div>
+
+
+    <%
+let safeEducation = education || [];
+
+while (safeEducation.length < 3) {
+    safeEducation.push({
+        level: "",
+        school: "",
+        score: "",
+        isEmpty: true
+    });
+}
+%>
+    <% safeEducation.forEach((edu, index)=> { %>
+
+    <div class="columnodd">
+
+      <% for(let i=1; i <=5; i++) { %>
+
+      <% let boxClass=i===1 ? 'boxone' : i===2 ? 'boxtwo' : i===3 ? 'boxthree' : i===4 ? 'boxfour' : i===5 ? 'boxfive' : ''; %>
+
+      <div class="box <%= boxClass %>">
+
+        <% if ( (index % 2===0 && i===2) || (index % 2 !==0 && i===4) ) { %>
+
+        <!-- FULL content box -->
+        <div class="specialbox">
+
+          <% if (!edu.level && !edu.school && !edu.score) { %>
+
+          <!-- EMPTY PRESERVE BOX -->
+          <p class="yoEducDetail">Add Education</p>
+
+          <% } else { %>
+
+          <p class="yoEducDetail"><%= edu.level %></p>
+          <p class="yoEducDetail"><%= edu.school %></p>
+          <p class="yoEducDetail"><%= edu.score %></p>
+
+          <% } %>
+
+        </div>
+
+        <% } else { %>
+
+        <!-- normal split boxes -->
+        <div class="leftinnerbox innerBox"></div>
+        <div class="rightinnerbox innerBox"></div>
+
+        <% } %>
+
+      </div>
+
+      <% } %>
+
+    </div>
+
+
+    <div class="columneven">
+
+      <% for(let i=1; i <=6; i++) { %>
+
+      <% let orderClass=i===1 ? 'one' : i===2 ? 'two' : i===3 ? 'three' : i===4 ? 'four' : i===5 ? 'five' : i===6
+          ? 'six'  : '' ; let zigzagClass=(index % 2===0 ? 'evenbox' : 'oddbox' ) + orderClass; %>
+
+      <div class="box <%= zigzagClass %> <%= (i === 1 || i === 6) ? 'topbottombox' : '' %>">
+        <div class="leftinnerbox innerBox"></div>
+        <div class="rightinnerbox innerBox"></div>
+      </div>
+
+      <% } %>
+
+    </div>
+
+
+    <% }); %>
+
+  </section>

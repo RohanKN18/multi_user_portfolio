@@ -1,0 +1,89 @@
+/* ================= THEME SWITCH CONTAINER ================= */
+.themeSwitch {
+  position: relative;
+  width: 64px;
+  height: 30px;
+  margin-right: 15px;
+}
+
+/* Hide default checkbox */
+.themeSwitch input {
+  display: none;
+}
+
+
+/* ================= SLIDER BACKGROUND ================= */
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ffe58a; /* Light mode (sun) */
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.4s;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 16px;
+}
+
+
+/* ================= SLIDER KNOB ================= */
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.4s;
+  z-index: 2;
+}
+
+
+/* ================= ICONS (SUN / MOON) ================= */
+.icon {
+  pointer-events: none;
+  z-index: 1;
+  transition: 0.4s;
+}
+
+/* Default state (Light Mode) */
+.sun {
+  opacity: 1;
+}
+
+.moon {
+  opacity: 0.4;
+}
+
+
+/* ================= DARK MODE ACTIVE ================= */
+
+/* Background changes */
+input:checked + .slider {
+  background: #1b1b1b;
+}
+
+/* Move knob to right */
+input:checked + .slider::before {
+  transform: translateX(34px);
+  background: #6aff6a;
+  box-shadow: 0 0 10px #6aff6a;
+}
+
+/* Icon visibility swap */
+input:checked + .slider .sun {
+  opacity: 0.4;
+}
+
+input:checked + .slider .moon {
+  opacity: 1;
+}
+
+.slider:active::before {
+  transform: scale(1.1);
+} 

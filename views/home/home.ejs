@@ -1,0 +1,106 @@
+<%- include("../includes/head.ejs"); %>
+
+<body style="padding-top:0%;">
+
+  <div style="display:flex;" id="photoContainer">
+    <div id="photo">
+    </div>
+  </div>
+  <div style="display: flex;" id="questionContainer">
+    <div id="question">
+      <div class="word" id="Wone">"You</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwo">take</div>
+      <div class="space"></div>
+      <div class="word" id="Wthree">the</div>
+      <div class="space"></div>
+      <div class="word" id="Wfour">blue</div>
+      <div class="space"></div>
+      <div class="word" id="Wfive">pill,</div>
+      <div class="space"></div>
+      <div class="word" id="Wsix">the</div>
+      <div class="space"></div>
+      <div class="word" id="Wseven">story</div>
+      <div class="space"></div>
+      <div class="word" id="Weight">ends,</div>
+      <div class="space"></div>
+      <div class="word" id="Wnine">you</div>
+      <div class="space"></div>
+      <div class="word" id="Wten">wake</div>
+      <div class="space"></div>
+      <div class="word" id="Weleven">up</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwelve">in</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirteen">your</div>
+      <div class="space"></div>
+      <div class="word" id="Wfourteen">bed</div>
+      <div class="space"></div>
+      <div class="word" id="Wfifteen">and</div>
+      <div class="space"></div>
+      <div class="word" id="Wsixteen">believe</div>
+      <div class="space"></div>
+      <div class="word" id="Wseventeen">whatever</div>
+      <div class="space"></div>
+      <div class="word" id="Weightteen">you</div>
+      <div class="space"></div>
+      <div class="word" id="Wnineteen">want</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwenty">to</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentyone">believe.</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentytwo">You</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentythree">take</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentyfour">the</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentyfive">red</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentysix">pill,</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentyseven">you</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentyeight">stay</div>
+      <div class="space"></div>
+      <div class="word" id="Wtwentynine">in</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirty">wonderland,</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtyone">and</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtytwo">I</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtythree">show</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtyfour">you</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtyfive">how</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtysix">deep</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtyseven">my</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtyeight">resume</div>
+      <div class="space"></div>
+      <div class="word" id="Wthirtynine">goes."</div>
+      <div class="space"></div>
+    </div>
+  </div>
+  <div style="display: flex;" id="pillsContainer">
+    <div id="bluePill"></div>
+    <a href="/publicportfolio" class="redPill" id="redPill"></a>
+  </div>
+  <%- include("../includes/background.ejs"); %>
+
+
+  <script>
+    document.getElementById("bluePill").addEventListener("click", () => {
+      document.body.classList.add("matrixExit");
+    });
+  </script>
+  <%- include("../includes/jsscript.ejs"); %>
+</body>
+
+</html>

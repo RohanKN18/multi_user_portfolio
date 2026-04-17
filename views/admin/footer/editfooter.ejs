@@ -1,0 +1,70 @@
+<%- include("../../includes/head.ejs"); %>
+
+<body>
+  <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+  <form action="/admin/<%= user.username %>/portfolio/editfooter" method="POST" id="editFooterForm">
+
+    <h2>Edit Footer</h2>
+
+    <!-- Contact -->
+    <div class="formGroup">
+      <label>Email</label>
+      <input type="email" name="email" value="<%= footer?.contact?.email || '' %>">
+    </div>
+
+    <div class="formGroup">
+      <label>Phone</label>
+      <input type="text" name="phone" value="<%= footer?.contact?.phone || '' %>">
+    </div>
+
+    <!-- Social Links -->
+    <h3>Social Links</h3>
+
+    <div id="socialContainer">
+
+      <% if (footer?.socialLinks?.length) { %>
+        <% footer.socialLinks.forEach((link, index) => { %>
+          <div class="formGroup">
+            <label>Name</label>
+            <input type="text" name="socialLinks[<%= index %>][name]" value="<%= link.name || '' %>">
+
+            <label>URL</label>
+            <input type="text" name="socialLinks[<%= index %>][url]" value="<%= link.url || '' %>">
+          </div>
+        <% }) %>
+      <% } else { %>
+        <!-- Empty initial row -->
+        <div class="formGroup">
+          <label>Name</label>
+          <input type="text" name="socialLinks[0][name]" placeholder="GitHub">
+
+          <label>URL</label>
+          <input type="text" name="socialLinks[0][url]" placeholder="https://...">
+        </div>
+      <% } %>
+
+    </div>
+
+    <button type="button" id="addSocialBtn">+ Add Link</button>
+
+    <!-- Copyright -->
+    <div class="formGroup">
+      <label>Year</label>
+      <input type="number" name="year" value="<%= footer?.copyright?.year || '' %>">
+    </div>
+
+    <div class="formGroup">
+      <label>Name</label>
+      <input type="text" name="name" value="<%= footer?.copyright?.name || '' %>">
+    </div>
+
+    <button type="submit">Save Changes</button>
+
+  </form>
+
+
+  <script src="/js/editFooter.js"></script>
+
+</body>
+</html>

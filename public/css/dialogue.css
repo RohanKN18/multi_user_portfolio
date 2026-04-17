@@ -1,0 +1,426 @@
+/* =========================================================
+   QUESTION CONTAINER (SECTION LAYOUT)
+========================================================= */
+
+#questionContainer {
+    position: absolute;
+    top: 60%;
+    left: 0;
+
+    width: 100%;
+    height: 25%;
+}
+
+
+/* =========================================================
+   QUESTION TEXT WRAPPER
+========================================================= */
+
+#question {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(90vw, 900px);
+    height: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+
+/* =========================================================
+   WORD STYLING
+========================================================= */
+
+.word {
+    display: inline-block;
+
+    color: rgb(107,171,107);
+
+    font-size: clamp(14px, 2.2vw, 22px);
+    text-align: center;
+}
+
+
+/* =========================================================
+   SPACE BETWEEN WORDS
+========================================================= */
+
+.space {
+    display: inline-block;
+    width: clamp(3px, 1vw, 8px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Wone {
+    visibility: visible;
+    animation: Wone 6s ease-out 0s 1 normal;
+}
+#Wtwo {
+    visibility: visible;
+    animation: Wtwo 6s ease-out 0s 1 normal;
+}
+#Wthree {
+    visibility: visible;
+    animation: Wthree 6s ease-out 0s 1 normal;
+}
+#Wfour {
+    visibility: visible;
+    animation: Wfour 6s ease-in 0s 1 normal;
+}
+#Wfive {
+    visibility: visible;
+    animation: Wfive 6s ease-in 0s 1 normal;
+}
+#Wsix {
+    visibility: visible;
+    animation: Wsix 6s ease-in 0s 1 normal;
+}
+#Wseven {
+    visibility: visible;
+    animation: Wseven 6s ease-in 0s 1 normal;
+}
+#Weight {
+    visibility: visible;
+    animation: Weight 6s ease-in 0s 1 normal;
+}
+#Wnine {
+    visibility: visible;
+    animation: Wnine 6s ease-in 0s 1 normal;
+}
+#Wten {
+    visibility: visible;
+    animation: Wten 6s ease-in 0s 1 normal;
+}
+#Weleven {
+    visibility: visible;
+    animation: Weleven 6s ease-in 0s 1 normal;
+}
+#Wtwelve {
+    visibility: visible;
+    animation: Wtwelve 6s ease-in 0s 1 normal;
+}
+#Wthirteen {
+    visibility: visible;
+    animation: Wthirteen 6s ease-in 0s 1 normal;
+}
+#Wfourteen {
+    visibility: visible;
+    animation: Wfourteen 6s ease-in 0s 1 normal;
+}
+#Wfifteen {
+    visibility: visible;
+    animation: Wfifteen 6s ease-in 0s 1 normal;
+}
+#Wsixteen {
+    visibility: visible;
+    animation: Wsixteen 6s ease-in 0s 1 normal;
+}
+#Wseventeen {
+    visibility: visible;
+    animation: Wseventeen 6s ease-in 0s 1 normal;
+}
+#Weightteen {
+    visibility: visible;
+    animation: Weightteen 6s ease-in 0s 1 normal;
+}
+#Wnineteen {
+    visibility: visible;
+    animation: Wnineteen 6s ease-in 0s 1 normal;
+}
+#Wtwenty {
+    visibility: visible;
+    animation: Wtwenty 6s ease-in 0s 1 normal;
+}
+#Wtwentyone {
+    visibility: visible;
+    animation: Wtwentyone 6s ease-in 0s 1 normal;
+}
+#Wtwentytwo {
+    visibility: visible;
+    animation: Wtwentytwo 6s ease-in 0s 1 normal;
+}
+#Wtwentythree {
+    visibility: visible;
+    animation: Wtwentythree 6s ease-in 0s 1 normal;
+}
+#Wtwentyfour {
+    visibility: visible;
+    animation: Wtwentyfour 6s ease-in 0s 1 normal;
+}
+#Wtwentyfive {
+    visibility: visible;
+    animation: Wtwentyfive 6s ease-in 0s 1 normal;
+}
+#Wtwentysix {
+    visibility: visible;
+    animation: Wtwentysix 6s ease-in 0s 1 normal;
+}
+#Wtwentyseven {
+    visibility: visible;
+    animation: Wtwentyseven 6s ease-in 0s 1 normal;
+}
+#Wtwentyeight {
+    visibility: visible;
+    animation: Wtwentyeight 6s ease-in 0s 1 normal;
+}
+#Wtwentynine {
+    visibility: visible;
+    animation: Wtwentynine 6s ease-in 0s 1 normal;
+}
+#Wthirty {
+    visibility: visible;
+    animation: Wthirty 6s ease-in 0s 1 normal;
+}
+#Wthirtyone {
+    visibility: visible;
+    animation: Wthirtyone 6s ease-in 0s 1 normal;
+}
+#Wthirtytwo {
+    visibility: visible;
+    animation: Wthirtytwo 6s ease-in 0s 1 normal;
+}
+#Wthirtythree {
+    visibility: visible;
+    animation: Wthirtythree 6s ease-in 0s 1 normal;
+}
+#Wthirtyfour {
+    visibility: visible;
+    animation: Wthirtyfour 6s ease-in 0s 1 normal;
+}
+#Wthirtyfive {
+    visibility: visible;
+    animation: Wthirtyfive 6s ease-in 0s 1 normal;
+}
+#Wthirtysix {
+    visibility: visible;
+    animation: Wthirtysix 6s ease-in 0s 1 normal;
+}
+#Wthirtyseven {
+    visibility: visible;
+    animation: Wthirtyseven 6s ease-in 0s 1 normal;
+}
+#Wthirtyeight {
+    visibility: visible;
+    animation: Wthirtyeight 6s ease-in 0s 1 normal;
+}
+#Wthirtynine {
+    visibility: visible;
+    animation: Wthirtynine 6s ease-in 0s 1 normal;
+}
+
+
+
+@keyframes Wone {
+    0% { visibility: hidden; }
+    25% { visibility: hidden; }
+    27% { visibility: visible; }
+}
+@keyframes Wtwo {
+    0% { visibility: hidden; }
+    27% { visibility: hidden; }
+    28.5% { visibility: visible; }
+}
+@keyframes Wthree {
+    0% { visibility: hidden; }
+    28.5% { visibility: hidden; }
+    30% { visibility: visible; }
+}
+@keyframes Wfour {
+    0% { visibility: hidden; }
+    30% { visibility: hidden; }
+    31.5% { visibility: visible; }
+}
+@keyframes Wfive {
+    0% { visibility: hidden; }
+    31.5% { visibility: hidden; }
+    33% { visibility: visible; }
+}
+@keyframes Wsix {
+    0% { visibility: hidden; }
+    33% { visibility: hidden; }
+    34.5% { visibility: visible; }
+}
+@keyframes Wseven {
+    0% { visibility: hidden; }
+    34.5% { visibility: hidden; }
+    36% { visibility: visible; }
+}
+@keyframes Weight {
+    0% { visibility: hidden; }
+    36% { visibility: hidden; }
+    37.5% { visibility: visible; }
+}
+@keyframes Wnine {
+    0% { visibility: hidden; }
+    37.5% { visibility: hidden; }
+    39% { visibility: visible; }
+}
+@keyframes Wten {
+    0% { visibility: hidden; }
+    39% { visibility: hidden; }
+    40.5% { visibility: visible; }
+}
+@keyframes Weleven {
+    0% { visibility: hidden; }
+    40.5% { visibility: hidden; }
+    42% { visibility: visible; }
+}
+@keyframes Wtwelve {
+    0% { visibility: hidden; }
+    42% { visibility: hidden; }
+    43.5% { visibility: visible; }
+}
+@keyframes Wthirteen {
+    0% { visibility: hidden; }
+    43.5% { visibility: hidden; }
+    45% { visibility: visible; }
+}
+@keyframes Wfourteen {
+    0% { visibility: hidden; }
+    45% { visibility: hidden; }
+    46.5% { visibility: visible; }
+}
+@keyframes Wfifteen {
+    0% { visibility: hidden; }
+    46.5% { visibility: hidden; }
+    48% { visibility: visible; }
+}
+@keyframes Wsixteen {
+    0% { visibility: hidden; }
+    48% { visibility: hidden; }
+    49.5% { visibility: visible; }
+}
+@keyframes Wseventeen {
+    0% { visibility: hidden; }
+    49.5% { visibility: hidden; }
+    51% { visibility: visible; }
+}
+@keyframes Weightteen {
+    0% { visibility: hidden; }
+    51% { visibility: hidden; }
+    52.5% { visibility: visible; }
+}
+@keyframes Wnineteen {
+    0% { visibility: hidden; }
+    52.5% { visibility: hidden; }
+    54% { visibility: visible; }
+}
+@keyframes Wtwenty {
+    0% { visibility: hidden; }
+    54% { visibility: hidden; }
+    55.5% { visibility: visible; }
+}
+@keyframes Wtwentyone {
+    0% { visibility: hidden; }
+    55.5% { visibility: hidden; }
+    57% { visibility: visible; }
+}
+@keyframes Wtwentytwo {
+    0% { visibility: hidden; }
+    57% { visibility: hidden; }
+    58.5% { visibility: visible; }
+}
+@keyframes Wtwentythree {
+    0% { visibility: hidden; }
+    58.5% { visibility: hidden; }
+    60% { visibility: visible; }
+}
+@keyframes Wtwentyfour {
+    0% { visibility: hidden; }
+    60% { visibility: hidden; }
+    61.5% { visibility: visible; }
+}
+@keyframes Wtwentyfive {
+    0% { visibility: hidden; }
+    61.5% { visibility: hidden; }
+    63% { visibility: visible; }
+}
+@keyframes Wtwentysix {
+    0% { visibility: hidden; }
+    63% { visibility: hidden; }
+    64.5% { visibility: visible; }
+}
+@keyframes Wtwentyseven {
+    0% { visibility: hidden; }
+    64.5% { visibility: hidden; }
+    66% { visibility: visible; }
+}
+@keyframes Wtwentyeight {
+    0% { visibility: hidden; }
+    66% { visibility: hidden; }
+    67.5% { visibility: visible; }
+}
+@keyframes Wtwentynine {
+    0% { visibility: hidden; }
+    67.5% { visibility: hidden; }
+    69% { visibility: visible; }
+}
+@keyframes Wthirty {
+    0% { visibility: hidden; }
+    69% { visibility: hidden; }
+    70.5% { visibility: visible; }
+}
+@keyframes Wthirtyone {
+    0% { visibility: hidden; }
+    70.5% { visibility: hidden; }
+    72% { visibility: visible; }
+}
+@keyframes Wthirtytwo {
+    0% { visibility: hidden; }
+    72% { visibility: hidden; }
+    73.5% { visibility: visible; }
+}
+@keyframes Wthirtythree {
+    0% { visibility: hidden; }
+    73.5% { visibility: hidden; }
+    75% { visibility: visible; }
+}
+@keyframes Wthirtyfour {
+    0% { visibility: hidden; }
+    75% { visibility: hidden; }
+    76.5% { visibility: visible; }
+}
+@keyframes Wthirtyfive {
+    0% { visibility: hidden; }
+    76.5% { visibility: hidden; }
+    78% { visibility: visible; }
+}
+@keyframes Wthirtysix {
+    0% { visibility: hidden; }
+    78% { visibility: hidden; }
+    79.5% { visibility: visible; }
+}
+@keyframes Wthirtyseven {
+    0% { visibility: hidden; }
+    79.5% { visibility: hidden; }
+    81% { visibility: visible; }
+}
+@keyframes Wthirtyeight {
+    0% { visibility: hidden; }
+    81% { visibility: hidden; }
+    82.5% { visibility: visible; }
+}
+@keyframes Wthirtynine {
+    0% { visibility: hidden; }
+    82.5% { visibility: hidden; }
+    84% { visibility: visible; }
+}

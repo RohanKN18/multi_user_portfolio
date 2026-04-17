@@ -1,0 +1,15 @@
+<div id="skills">
+  <div id="skillsHead">
+    <span id="headingskills">SkillOs</span>
+  </div>
+  <div id="skillsbody">
+    <% for (skill of skills) { %>
+    <div class="skillItemWrapper">
+      <a class="skillItem" href="/<%= user.username %>/publicportfolio/skills/<%= skill.slug %>">
+        <div class="skillsName"><%= skill.skillName %> </div>
+      </a>
+    </div>
+    <% } %>
+
+  </div>
+</div>

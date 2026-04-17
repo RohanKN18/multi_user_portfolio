@@ -1,0 +1,463 @@
+/* =========================================================
+   PROJECTS SECTION (LIST VIEW)
+========================================================= */
+
+/* ================= MAIN CONTAINER ================= */
+#projectsContainer {
+    width: 80vw;
+    max-width: 1400px;
+    scroll-margin-top: 15vh;
+
+    /* animation (hidden by default) */
+    opacity: 0;
+    transform: translateY(80px) scale(0.95);
+    transition: opacity 0.8s, transform 0.8s;
+}
+
+/* visible state */
+.showSection {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1);
+}
+
+
+/* ================= HEADING ================= */
+#projectsHeadingWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#projectsHeading {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(28px,3vw,42px);
+    color: rgb(152,225,157);
+
+    border-bottom: 2px solid rgb(152,225,157);
+    margin-bottom: 40px;
+}
+
+
+/* ================= ADD BUTTON ================= */
+#addProjectBtn {
+    padding: 6px 12px;
+    border: 1px solid rgb(84,165,84);
+    color: rgb(84,165,84);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+#addProjectBtn:hover {
+    background: rgb(84,165,84);
+    color: rgb(3,31,3);
+}
+
+
+/* ================= GRID ================= */
+#projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 40px;
+}
+
+
+/* ================= PROJECT CARD ================= */
+.projectCardWrapper {
+    position: relative;
+}
+
+.projectCard {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    border: 2px solid rgb(152,225,157);
+    transition: 0.3s;
+}
+
+.projectCard:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgb(152,225,157);
+}
+
+
+/* ================= MEDIA ================= */
+.projectMedia {
+    height: 40vh;
+    overflow: hidden;
+}
+
+.projectMedia img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ================= INFO ================= */
+.projectInfo {
+    height: 40vh;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    text-align: center;
+}
+
+.projectInfo h3 {
+    color: rgb(152,225,157);
+}
+
+.projectInfo p {
+    color: #b9f3c0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* ================= TAGS ================= */
+.projectTags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.projectTags span {
+    border: 1px solid rgb(152,225,157);
+    padding: 4px 10px;
+    font-size: 12px;
+
+    color: #98e19d;
+    background: rgba(152,225,157,0.08);
+}
+
+.projectTags span:hover {
+    box-shadow: 0 0 8px rgb(152,225,157);
+}
+
+
+/* ================= DELETE BUTTON ================= */
+.deleteProjectBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 26px;
+    height: 26px;
+
+    background: rgba(255, 80, 80, 0.12);
+    color: rgb(255, 80, 80);
+
+    border: 1px solid rgb(255, 80, 80);
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.deleteProjectBtn:hover {
+    background: rgb(255, 80, 80);
+    color: rgb(3,31,3);
+    box-shadow: 0 0 8px rgb(255, 80, 80);
+}
+
+
+/* =========================================================
+   PROJECT DETAIL PAGE
+========================================================= */
+
+#projectPage {
+    width: 80vw;
+    margin: 10vh auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+
+/* ================= HEADER ================= */
+.projectHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* edit button */
+.editProjectBtn {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #00ff9f;
+    color: #00ff9f;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.editProjectBtn:hover {
+    background: #00ff9f;
+    color: #000;
+    box-shadow: 0 0 10px #00ff9f;
+}
+
+
+/* ================= TITLE ================= */
+.projectTitle {
+    font-size: clamp(32px,4vw,56px);
+    color: rgb(152,225,157);
+    text-align: center;
+    animation: fadeDown 0.8s ease;
+}
+
+
+/* ================= MEDIA ================= */
+.mediaWrapper {
+    width: 100%;
+    max-width: 900px;
+    height: 50vh;
+    border: 2px solid rgb(152,225,157);
+    overflow: hidden;
+    animation: fadeUp 1s ease;
+}
+
+.mediaWrapper img,
+.mediaWrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ================= DETAIL CARD ================= */
+.projectCardDetail {
+    width: 100%;
+    border: 2px solid rgb(152,225,157);
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    animation: fadeUp 1.2s ease;
+}
+
+.projectCardDetail section {
+    text-align: center;
+}
+
+.projectCardDetail h2 {
+    color: rgb(152,225,157);
+    margin-bottom: 10px;
+}
+
+
+/* ================= CONTENT STYLES ================= */
+
+/* description */
+.description p {
+    color: #b9f3c0;
+}
+
+/* tech stack */
+.techStack span {
+    color: #98e19d;
+    border: 1px solid #98e19d;
+    padding: 5px 12px;
+    background: rgba(152,225,157,0.08);
+}
+
+/* features + highlights */
+.features li,
+.highlights li {
+    color: #b9f3c0;
+}
+
+.features li::before,
+.highlights li::before {
+    content: "▹ ";
+    color: #98e19d;
+}
+
+
+/* ================= META + LINKS ================= */
+.meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    color: #98e19d;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.links a {
+    border: 1px solid rgb(152,225,157);
+    padding: 10px 20px;
+    text-decoration: none;
+    color: rgb(152,225,157);
+    transition: 0.3s;
+}
+
+.links a:hover {
+    box-shadow: 0 0 15px rgb(152,225,157);
+}
+
+
+/* =========================================================
+   EDIT PROJECT PAGE
+========================================================= */
+
+#editProjectPage {
+    width: 60%;
+    margin: auto;
+    padding: 40px;
+    color: #00ff9f;
+}
+
+#editProjectPage h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+/* ================= FORM ================= */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    padding: 10px;
+    background: transparent;
+    border: 1px solid #00ff9f;
+    color: #00ff9f;
+    border-radius: 5px;
+}
+
+textarea {
+    min-height: 80px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #00ff9f;
+    color: #00ff9f;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00ff9f;
+    color: black;
+    box-shadow: 0 0 10px #00ff9f;
+}
+
+
+/* =========================================================
+   ADVANCED EDIT FORM (CARD STYLE)
+========================================================= */
+.editContainer {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+
+    border: 1px solid rgb(84,165,84);
+    border-radius: 10px;
+    background: rgba(0, 20, 0, 0.6);
+}
+
+.formCard {
+    border: 1px solid rgb(84,165,84);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: rgba(0, 30, 0, 0.4);
+}
+
+.formGroup {
+    margin-bottom: 12px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgb(84,165,84);
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 25px;
+
+    border: 1px solid rgb(84,165,84);
+    background: rgb(3,31,3);
+    color: rgb(84,165,84);
+
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: rgb(84,165,84);
+    color: rgb(3,31,3);
+    box-shadow: 0 0 10px rgb(84,165,84);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media(max-width:900px){
+    #projectsGrid {
+        grid-template-columns: 1fr;
+    }
+}

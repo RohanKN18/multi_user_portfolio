@@ -1,0 +1,30 @@
+<footer id="footer" class="footer">
+    <div class="footerContent">
+
+        <div class="footerHeader">
+            <span>Footer</span>
+            <a href="/<%= user.username %>/portfolio/editfooter">
+                <button id="editFooterBtn">Edit</button>
+            </a>
+        </div>
+
+        <p>📧 Email: <%= footer?.contact?.email || "" %></p>
+        <p>📞 Phone: <%= footer?.contact?.phone || "" %></p>
+
+        <div class="socialLinks">
+            <% (footer?.socialLinks || []).forEach(social => { %>
+                <% if (social && social.url) { %>
+                    <a href="<%= social.url %>" target="_blank" rel="noopener">
+                        <%= social.name || social.url %>
+                    </a>
+                <% } %>
+            <% }) %>
+        </div>
+
+        <p class="copyright">
+            © <%= footer?.copyright?.year || "" %> 
+            <%= footer?.copyright?.name || "" %>
+        </p>
+
+    </div>
+</footer>

@@ -1,0 +1,41 @@
+<%- include("../../includes/head.ejs"); %>
+
+<body>
+  <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+  <div class="editContainer">
+
+    <h1>Edit Introduction</h1>
+
+    <form action="/<%= user.username %>/portfolio/editintro" method="POST">
+
+      <div class="formGroup">
+        <label>Hi Text</label>
+        <input type="text" name="hi" value="<%= greeting.hi %>">
+      </div>
+
+      <div class="formGroup">
+        <label>Name</label>
+        <input type="text" name="name" value="<%= greeting.name %>">
+      </div>
+
+      <div class="formGroup">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= greeting.title %>">
+      </div>
+
+      <div class="formGroup">
+        <label>Description</label>
+        <textarea name="description"><%= greeting.description %></textarea>
+      </div>
+
+      <button type="submit">Save</button>
+
+    </form>
+
+  </div>
+
+  <%- include("../../includes/footer.ejs"); %>
+</body>
+
+</html>

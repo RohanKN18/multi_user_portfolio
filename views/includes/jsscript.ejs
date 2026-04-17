@@ -1,0 +1,232 @@
+<!-- fucking crazy -->
+
+<script>
+const digits = document.querySelectorAll('.zero, .one');
+
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener("mousemove", e=>{
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+document.addEventListener("click", e=>{
+    ripple(e.clientX,e.clientY);
+});
+
+function ripple(x,y){
+    digits.forEach(el=>{
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+
+        const dist = Math.hypot(x-cx,y-cy);
+
+        if(dist < 200){
+            el.animate([
+                { transform:"scale(1)", textShadow:"0 0 0px #6aff6a"},
+                { transform:"scale(1.8)", textShadow:"0 0 25px #6aff6a"},
+                { transform:"scale(1)", textShadow:"0 0 0px #6aff6a"}
+            ],{
+                duration:500,
+                easing:"ease-out"
+            });
+        }
+    });
+}
+
+function animate(){
+
+    digits.forEach(el=>{
+        const rect = el.getBoundingClientRect();
+
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+
+        const dx = mouseX - cx;
+        const dy = mouseY - cy;
+        const dist = Math.hypot(dx,dy);
+
+        const max = 180;
+        let intensity = 1 - dist/max;
+
+        if(intensity > 0){
+
+            /* glow */
+            const glow = 25*intensity;
+            el.style.textShadow = `0 0 ${glow}px #6aff6a`;
+
+            /* brightness */
+            const bright = 180 + 75*intensity;
+            el.style.color = `rgb(${bright},255,${bright})`;
+
+            /* magnetic pull */
+            const pull = 12*intensity;
+            el.style.transform =
+                `translate(${dx/dist * pull}px, ${dy/dist * pull}px)`;
+
+        } else {
+            el.style.textShadow = "";
+            el.style.color = "";
+            el.style.transform = "";
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- theme switch -->
+<script>
+const toggle = document.getElementById("themeToggle");
+
+const targets = [
+  document.querySelector(".navbar"),
+  document.querySelector(".skillBox"),
+  document.querySelector(".formtopicBox"),
+  document.querySelector(".loginBox"),
+  document.getElementById("greetingBox"),
+  document.getElementById("outercoverEduc"),
+  document.getElementById("skillsSection"),
+  document.getElementById("projectsContainer"),
+  document.querySelector("footer")
+];
+
+// ---------- LOAD SAVED THEME ----------
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme === "dark"){
+    toggle.checked = true;
+    applyDark();
+}
+
+// ---------- TOGGLE EVENT ----------
+toggle.addEventListener("change", () => {
+  if(toggle.checked){
+      applyDark();
+      localStorage.setItem("theme","dark");
+  } else {
+      applyLight();
+      localStorage.setItem("theme","light");
+  }
+});
+
+// ---------- FUNCTIONS ----------
+function applyDark(){
+    targets.forEach(el=>{
+        if(el) el.style.backgroundColor="rgba(0,0,0,0.65)";
+    });
+}
+
+function applyLight(){
+    targets.forEach(el=>{
+        if(el) el.style.backgroundColor="";
+    });
+}
+</script>
+
+
+
+
+
+
+
+<!-- 
+ appering late animation -->
+<script>
+const educsection = document.querySelector("#outercoverEduc");
+
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            educsection.classList.add("show");
+        }
+    });
+},{ threshold:0.25 });
+
+observer.observe(educsection);
+</script>
+
+
+<!-- 
+ appering late animation -->
+<script>
+const skillsSection = document.querySelector("#skillsSection");
+
+const observer1 = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            skillsSection.classList.add("animate");
+        }
+    });
+},{ threshold:.4 });
+
+observer1.observe(skillsSection);
+</script>
+
+<!-- slider for left  -->
+<script>
+const skillsSections = document.getElementById("skills");
+
+const observers = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            skillsSections.classList.add("animate");
+        }
+    });
+}, { threshold: 0.2 });
+
+observers.observe(skillsSections);
+</script>
+
+<!-- late animation for all -->
+<script>
+const sections = document.querySelectorAll(
+    " #projectsContainer "
+);
+
+const observerall = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("showSection");
+    }
+  });
+},{
+  threshold: 0.15
+});
+
+sections.forEach(section=>observerall.observe(section));
+</script>
+
+<!-- navbar buger animation -->
+<script>
+    const menuBtn = document.getElementById("menuToggle");
+const navLeft = document.querySelector(".nav-left");
+
+menuBtn.addEventListener("click",()=>{
+  navLeft.classList.toggle("active");
+});
+</script>
+
+
+<script>
+    document.querySelectorAll(".nav-left a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    navLeft.classList.remove("active");
+  });
+});
+</script>

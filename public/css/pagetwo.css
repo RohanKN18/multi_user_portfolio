@@ -1,0 +1,24 @@
+/* =========================================================
+   PAGE TWO (MAIN LAYOUT CONTAINER)
+========================================================= */
+
+#pageTwo {
+    min-height: 100vh;        /* full viewport height */
+    overflow-x: hidden;       /* prevent horizontal scroll */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+
+/* =========================================================
+   GLOBAL BODY OFFSET
+========================================================= */
+
+/* Prevent content from hiding under fixed header/navbar */
+body {
+    padding-top: 50px;
+}

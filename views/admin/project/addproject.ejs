@@ -1,0 +1,129 @@
+<%- include("../../includes/head.ejs"); %>
+
+<body>
+
+  <%- include("../../includes/backgroundnoanimation.ejs"); %>
+
+  <div class="editContainer">
+
+    <h1>Add Project</h1>
+
+    <form action="/<%= user.username %>/portfolio/projects/addproject" method="POST">
+
+      <!-- BASIC INFO -->
+      <div class="formCard">
+
+        <h3>Basic Info</h3>
+
+        <div class="formGroup">
+          <label>Project Name</label>
+          <input type="text" name="projectName" required>
+        </div>
+
+        <div class="formGroup">
+          <label>Project Slug</label>
+          <input type="text" name="projectSlug" required>
+        </div>
+
+        <div class="formGroup">
+          <label>Description</label>
+          <textarea name="description" required></textarea>
+        </div>
+
+        <div class="formGroup">
+          <label>Image Path</label>
+          <input type="text" name="image" placeholder="images/project.png">
+        </div>
+
+      </div>
+
+      <!-- LINKS -->
+      <div class="formCard">
+        <h3>Links</h3>
+
+        <div class="formGroup">
+          <label>GitHub Link</label>
+          <input type="text" name="githubLink">
+        </div>
+
+        <div class="formGroup">
+          <label>Live Link</label>
+          <input type="text" name="liveLink">
+        </div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div class="formCard">
+        <h3>Tech Stack</h3>
+
+        <div class="formGroup">
+          <label>Languages (comma separated)</label>
+          <input type="text" name="languages">
+        </div>
+
+        <div class="formGroup">
+          <label>Frameworks</label>
+          <input type="text" name="frameworks">
+        </div>
+
+        <div class="formGroup">
+          <label>Databases</label>
+          <input type="text" name="databases">
+        </div>
+
+        <div class="formGroup">
+          <label>Tools</label>
+          <input type="text" name="tools">
+        </div>
+      </div>
+
+      <!-- EXTRA -->
+      <div class="formCard">
+        <h3>Details</h3>
+
+        <div class="formGroup">
+          <label>Role</label>
+          <input type="text" name="role">
+        </div>
+
+        <div class="formGroup">
+          <label>Status</label>
+          <input type="text" name="status">
+        </div>
+
+        <div class="formGroup">
+          <label>Start Date</label>
+          <input type="month" name="startDate">
+        </div>
+
+        <div class="formGroup">
+          <label>End Date</label>
+          <input type="month" name="endDate">
+        </div>
+      </div>
+
+      <!-- ARRAYS -->
+      <div class="formCard">
+        <h3>Features / Highlights</h3>
+
+        <div class="formGroup">
+          <label>Features (comma separated)</label>
+          <input type="text" name="features">
+        </div>
+
+        <div class="formGroup">
+          <label>Highlights</label>
+          <input type="text" name="highlights">
+        </div>
+      </div>
+
+      <button type="submit">Add Project</button>
+
+    </form>
+
+  </div>
+
+  <%- include("../../includes/footer.ejs"); %>
+</body>
+
+</html>
