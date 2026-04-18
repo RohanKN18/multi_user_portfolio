@@ -1,9 +1,17 @@
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
 // ================= IMPORTS =================
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
+
 
 // ================= MODELS =================
 import Greeting from "./models/greeting.js";
@@ -33,17 +41,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ================= DB CONNECTION =================
-const MONGO_URL = "mongodb://127.0.0.1:27017/AandAmultipleUser";
+const dbUrl=process.env.ATLASDB_URL;
 
-async function connectDB() {
-    try {
-        await mongoose.connect(MONGO_URL);
-        console.log("✅ MongoDB Connected");
-    } catch (err) {
-        console.log("❌ DB Connection Error:", err);
-    }
+
+
+main().then(()=>{
+    console.log("connceted to db");
+}).catch(err=>{
+    console.log(err);
+})
+
+async function main(){
+    await mongoose.connect(dbUrl)
 }
-connectDB();
+
+
+const store=MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:process.env.SECRET,
+    },
+    touchAfter:24*3600,
+})
+
+store.on("error",(err)=>{
+    console.log("ERROR IN MONGO SESSION STORE",err);
+});
 
 // ================= MIDDLEWARE =================
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +75,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // ================= VIEW ENGINE =================
+
 app.set("view engine", "ejs");
 
 // ================= GLOBAL CONFIG =================
@@ -64,11 +88,19 @@ import LocalStrategy from "passport-local";
 
 
 // ================= SESSION CONFIGURATION =================
-app.use(session({
-    secret: "mysupersecretkey", // use .env in production
-    resave: false,
-    saveUninitialized: false
-}));
+const sessionOptions={
+    store:store,
+    secret:process.env.SECRET,
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expires:Date.now()+7*24*60*60*1000,
+        maxAge:7*24*60*60*1000,
+        httpOnly:true,
+    }
+};
+
+app.use(session(sessionOptions));
 
 
 // ================= PASSPORT INITIALIZATION =================
@@ -136,13 +168,18 @@ app.use("/:username/portfolio/skills", skillsRouter);
 app.use("/:username/portfolio", PortfolioRouter);
 
 // ================= DEFAULT ROUTES =================
-app.get("/", (req, res) => {
-    res.redirect("/home");
+app.get("/:username", async (req, res) => {
+    const user = await User.findOne({ username: req.params.username });
+
+    if (!user) {
+        return res.status(404).send("User not found");
+    }
+
+    res.render("home/home.ejs", { username: user.username });
 });
 
-app.get("/home", (req, res) => {
-    res.render("home/home.ejs");
-});
+
+
 
 // ================= ERROR HANDLER =================
 app.use((err, req, res, next) => {

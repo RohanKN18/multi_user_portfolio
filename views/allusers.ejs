@@ -2,6 +2,37 @@
 
 <body>
   <%- include("includes/backgroundnoanimation.ejs"); %>
+  <div style="position: absolute; top: 20px; right: 30px; display: flex; gap: 10px;">
+  
+  <a href="/loginform">
+    <button style="
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ff9f;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    ">
+      Login
+    </button>
+  </a>
+
+  <a href="/register">
+    <button style="
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ff9f;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    ">
+      Register
+    </button>
+  </a>
+
+</div>
 
   <div class="users-container">
     <h1 class="page-title">All Users</h1>
@@ -21,7 +52,7 @@
             <td><%= user.username %></td>
             <td><%= user.email %></td>
             <td>
-              <a class="portfolio-link" href="/<%= user.username %>/publicportfolio">
+              <a class="portfolio-link" href="/<%= user.username %>">
                 View Portfolio
               </a>
             </td>

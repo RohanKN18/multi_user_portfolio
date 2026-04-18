@@ -12,6 +12,14 @@ import Footer from "../models/footer.js";
 
 import { isLoggedIn } from "../middleware.js";
 
+router.get("/", (req, res) => {
+    res.redirect("/home");
+});
+
+router.get("/home", async (req, res) => {
+    const users = await User.find();
+    res.render("allusers", { users });
+});
 
 router.get("/allusers", async (req, res) => {
     const users = await User.find();
