@@ -81,10 +81,14 @@ router.post("/addskill", isLoggedIn, attachUsername, async (req, res) => {
 
 // ================= EDIT INTRO =================
 router.get("/editintro", isLoggedIn, attachUsername, async (req, res) => {
-    const greeting = await Greeting.findOne({ owner: req.user._id });
+    const [greeting, footer] = await Promise.all([
+        Greeting.findOne({ owner: req.user._id }),
+        Footer.findOne({ owner: req.user._id })   // ← add this
+    ]);
 
     res.render("admin/intro/editintro.ejs", {
         greeting,
+        footer,   // ← add this
         user: req.user
     });
 });
