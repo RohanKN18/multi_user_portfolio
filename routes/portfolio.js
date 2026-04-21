@@ -115,11 +115,15 @@ router.post("/editintro", isLoggedIn, attachUsername, async (req, res) => {
 
 // ================= EDIT EDUCATION =================
 router.get("/editeducation", isLoggedIn, async (req, res) => {
-    const education = await Education.find({ owner: req.user._id });
+    const [education, footer] = await Promise.all([
+        Education.find({ owner: req.user._id }),
+        Footer.findOne({ owner: req.user._id })   // ← add this
+    ]);
 
     res.render("admin/education/editeducation.ejs", {
         education,
-        user: req.user // optional but useful
+        footer,   // ← add this
+        user: req.user
     });
 });
 
