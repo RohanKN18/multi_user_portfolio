@@ -230,18 +230,17 @@ router.get("/:projectId", isLoggedIn, async (req, res) => {
     try {
         const { projectId } = req.params;
 
-        const project = await Project.findOne({
-            _id: projectId,
-            owner: req.user._id // ✅ security
-        });
+        const [project, footer] = await Promise.all([
+            Project.findOne({ _id: projectId, owner: req.user._id }),
+            Footer.findOne({ owner: req.user._id })   // ← add this
+        ]);
 
-        if (!project) {
-            return res.status(404).send("Project not found");
-        }
+        if (!project) return res.status(404).send("Project not found");
 
         res.render("admin/projectindetail.ejs", {
             project,
-            user: req.user // optional but useful in EJS
+            footer,   // ← add this
+            user: req.user
         });
 
     } catch (err) {
