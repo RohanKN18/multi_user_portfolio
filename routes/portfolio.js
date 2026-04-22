@@ -203,28 +203,12 @@ router.get("/editeducation/deleteeducation/:id", isLoggedIn, async (req, res) =>
 
 
 
-
-router.get("/editfooter", isLoggedIn,loadUserPortfolio, async (req, res) => {
+router.get("/editfooter", isLoggedIn, loadUserPortfolio, async (req, res) => {
     try {
-        let footerData = await Footer.findOne({
-            owner: req.user._id
-        });
-
-        // ✅ auto-create if not exists (better UX)
-        if (!footerData) {
-            footerData = await Footer.create({
-                owner: req.user._id,
-                contact: { email: "", phone: "" },
-                socialLinks: [],
-                copyright: { year: "", name: "" }
-            });
-        }
-
         res.render("admin/footer/editfooter.ejs", {
             user: req.user,
-            ...req.portfolio
+            ...req.portfolio   // this already has footer inside it
         });
-
     } catch (err) {
         console.log("FOOTER GET ERROR:", err);
         res.status(500).send("Server error");
@@ -235,38 +219,21 @@ router.get("/editfooter", isLoggedIn,loadUserPortfolio, async (req, res) => {
 router.post("/editfooter", isLoggedIn, async (req, res) => {
     try {
         let footer = await Footer.findOne({ owner: req.user._id });
-
-        if (!footer) {
-            footer = new Footer({ owner: req.user._id });
-        }
+        if (!footer) footer = new Footer({ owner: req.user._id });
 
         footer.contact = {
             email: req.body.email?.trim() || "",
             phone: req.body.phone?.trim() || ""
         };
 
-        // Handle socialLinks properly
-        if (req.body.socialLinks) {
-            // If you're sending array of URLs only:
-            footer.socialLinks = req.body.socialLinks
-                .filter(url => url && url.trim() !== "")
-                .map(url => ({
-                    name: url.includes("twitter.com") ? "Twitter" :
-                          url.includes("linkedin.com") ? "LinkedIn" :
-                          url.includes("github.com") ? "GitHub" : "Link",
-                    url: url.trim()
-                }));
-
-            // OR if you're sending name + url pairs from form (better approach):
-            // footer.socialLinks = Array.isArray(req.body['social-name']) 
-            //     ? req.body['social-name'].map((name, i) => ({
-            //         name: name || "",
-            //         url: req.body['social-url'][i] || ""
-            //     })).filter(item => item.url)
-            //     : [];
-        } else {
-            footer.socialLinks = [];
-        }
+        // form sends socialLinks[0][name], socialLinks[0][url]
+        const rawLinks = Object.values(req.body.socialLinks || {});
+        footer.socialLinks = rawLinks
+            .filter(link => link.url && link.url.trim() !== "")
+            .map(link => ({
+                name: link.name?.trim() || "Link",
+                url: link.url.trim()
+            }));
 
         footer.copyright = {
             year: req.body.year?.trim() || "",
@@ -274,8 +241,8 @@ router.post("/editfooter", isLoggedIn, async (req, res) => {
         };
 
         await footer.save();
-
         res.redirect(`/${req.user.username}/portfolio`);
+
     } catch (err) {
         console.log("FOOTER UPDATE ERROR:", err);
         res.status(500).send("Server error");
