@@ -25,22 +25,26 @@
 
       <% if (footer?.socialLinks?.length) { %>
         <% footer.socialLinks.forEach((link, index) => { %>
-          <div class="formGroup">
+          <div class="formGroup socialRow">
             <label>Name</label>
             <input type="text" name="socialLinks[<%= index %>][name]" value="<%= link.name || '' %>">
 
             <label>URL</label>
             <input type="text" name="socialLinks[<%= index %>][url]" value="<%= link.url || '' %>">
+
+            <button type="button" class="removeLinkBtn" onclick="removeRow(this)">✕ Remove</button>
           </div>
         <% }) %>
       <% } else { %>
         <!-- Empty initial row -->
-        <div class="formGroup">
+        <div class="formGroup socialRow">
           <label>Name</label>
           <input type="text" name="socialLinks[0][name]" placeholder="GitHub">
 
           <label>URL</label>
           <input type="text" name="socialLinks[0][url]" placeholder="https://...">
+
+          <button type="button" class="removeLinkBtn" onclick="removeRow(this)">✕ Remove</button>
         </div>
       <% } %>
 
@@ -64,7 +68,47 @@
   </form>
 
 
-  <script src="/js/editFooter.js"></script>
+  <script>
+    // Initialise counter from server-rendered value — EJS runs here correctly
+    let linkIndex = <%= (footer && footer.socialLinks && footer.socialLinks.length > 0) ? footer.socialLinks.length : 1 %>;
+
+    document.getElementById("addSocialBtn").addEventListener("click", () => {
+      const container = document.getElementById("socialContainer");
+
+      const div = document.createElement("div");
+      div.classList.add("formGroup", "socialRow");
+
+      div.innerHTML = `
+        <label>Name</label>
+        <input type="text" name="socialLinks[${linkIndex}][name]" placeholder="Platform">
+
+        <label>URL</label>
+        <input type="text" name="socialLinks[${linkIndex}][url]" placeholder="https://...">
+
+        <button type="button" class="removeLinkBtn" onclick="removeRow(this)">✕ Remove</button>
+      `;
+
+      container.appendChild(div);
+      linkIndex++;
+    });
+
+    function removeRow(btn) {
+      const row = btn.closest(".socialRow");
+      if (row) row.remove();
+      reindex();
+    }
+
+    // Keep indices contiguous after a removal so the server parses them correctly
+    function reindex() {
+      const rows = document.querySelectorAll("#socialContainer .socialRow");
+      rows.forEach((row, i) => {
+        const inputs = row.querySelectorAll("input");
+        inputs[0].name = `socialLinks[${i}][name]`;
+        inputs[1].name = `socialLinks[${i}][url]`;
+      });
+      linkIndex = rows.length;
+    }
+  </script>
 
 </body>
 </html>
