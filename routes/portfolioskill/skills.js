@@ -18,9 +18,10 @@ router.get(
     (req, res) => {
 
         res.render("admin/skill/addtopics.ejs", {
-            user: req.user,                     // ✅ IMPORTANT
-            selectedSkill: req.selectedSkill
-        });
+    user: req.user,
+    selectedSkill: req.selectedSkill,
+    skills: req.portfolio.skills   // ← add this
+});
     }
 );
 
@@ -68,10 +69,11 @@ router.get(
     loadSelectedSkill,
     (req, res) => {
 
-        res.render("admin/skill/editskill.ejs", {
-            user: req.user,
-            selectedSkill: req.selectedSkill
-        });
+       res.render("admin/skill/editskill.ejs", {
+    user: req.user,
+    selectedSkill: req.selectedSkill,
+    skills: req.portfolio.skills   // ← add this
+});
     }
 );
 
