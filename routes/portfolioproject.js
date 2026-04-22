@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import mongoose from "mongoose";
 import Project from "../models/project.js";
-import footer from "../models/footer.js";
+import Footer from "../models/footer.js";
 import { isLoggedIn } from "../middleware.js";
 import { generateSlug } from "../utils/slugify.js";
 
@@ -100,6 +100,7 @@ router.post("/addproject", isLoggedIn, async (req, res) => {
 // ================= EDIT PAGE =================
 router.get("/:projectId/edit", isLoggedIn, async (req, res) => {
   try {
+    const { projectId } = req.params;
     const [project, footer, projects] = await Promise.all([
       Project.findOne({ _id: projectId, owner: req.user._id }),
       Footer.findOne({ owner: req.user._id }),
@@ -217,6 +218,7 @@ router.delete("/:projectId", isLoggedIn, async (req, res) => {
 // ================= VIEW PROJECT =================
 router.get("/:projectId", isLoggedIn, async (req, res) => {
   try {
+    const { projectId } = req.params;
     const [project, footer, projects] = await Promise.all([
     Project.findOne({ _id: projectId, owner: req.user._id }),
     Footer.findOne({ owner: req.user._id }),
