@@ -18,12 +18,12 @@ router.get("/", (req, res) => {
 
 router.get("/home", async (req, res) => {
     const users = await User.find();
-    res.render("allusers", { users });
+    res.render("allusers", { users, currentUser: req.user || null });
 });
 
 router.get("/allusers", async (req, res) => {
     const users = await User.find();
-    res.render("allusers", { users });
+    res.render("allusers", { users, currentUser: req.user || null });
 });
 
 // ================= REGISTER =================
@@ -37,8 +37,6 @@ router.post("/register", async (req, res) => {
 
         const newUser = new User({ username, email });
         const user = await User.register(newUser, password);
-
-        // ================= AUTO SEED USER DATA =================
 
         await Greeting.create({
             owner: user._id,
@@ -77,10 +75,7 @@ router.post("/register", async (req, res) => {
 
         await Footer.create({
             owner: user._id,
-            contact: {
-                email: "",
-                phone: ""
-            },
+            contact: { email: "", phone: "" },
             socialLinks: [],
             copyright: {
                 year: new Date().getFullYear(),
@@ -119,27 +114,74 @@ router.post(
 
 // ================= LOGOUT =================
 router.get("/logout", (req, res, next) => {
-    // ✅ store username BEFORE logout
     const username = req.user?.username;
 
     req.logout(function (err) {
         if (err) return next(err);
 
-        // ✅ destroy session completely
         req.session.destroy((err) => {
             if (err) return next(err);
-
-            // ✅ clear cookie (important)
             res.clearCookie("connect.sid");
 
-            // ✅ redirect safely
             if (username) {
                 return res.redirect(`/${username}/publicportfolio`);
             }
-
-            return res.redirect("/"); // fallback
+            return res.redirect("/");
         });
     });
+});
+
+
+// ================= DELETE ACCOUNT =================
+// Only a logged-in user can delete their own account.
+// Password must be confirmed before deletion.
+// All associated data is cascade-deleted.
+router.post("/delete-account", isLoggedIn, async (req, res, next) => {
+    try {
+        const { password } = req.body;
+        const user = req.user;
+
+        // Verify password via passport-local-mongoose
+        const verified = await new Promise((resolve) => {
+            User.authenticate()(user.username, password, (err, result) => {
+                resolve(!err && !!result);
+            });
+        });
+
+        if (!verified) {
+            return res.redirect(
+                `/allusers?deleteError=${encodeURIComponent("Incorrect password. Account was not deleted.")}&deleteTarget=${user.username}`
+            );
+        }
+
+        const userId = user._id;
+
+        // Cascade delete every piece of data tied to this user
+        await Promise.all([
+            Greeting.deleteMany({ owner: userId }),
+            Skill.deleteMany({ owner: userId }),
+            Project.deleteMany({ owner: userId }),
+            Education.deleteMany({ owner: userId }),
+            Footer.deleteMany({ owner: userId }),
+        ]);
+
+        // Delete the user account itself
+        await User.findByIdAndDelete(userId);
+
+        // Log out and destroy session cleanly
+        req.logout(function (err) {
+            if (err) return next(err);
+            req.session.destroy((err) => {
+                if (err) return next(err);
+                res.clearCookie("connect.sid");
+                res.redirect("/allusers?deleted=1");
+            });
+        });
+
+    } catch (err) {
+        console.log("DELETE ACCOUNT ERROR:", err);
+        res.status(500).send("Server error while deleting account");
+    }
 });
 
 

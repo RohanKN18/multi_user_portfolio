@@ -2,40 +2,44 @@
 
 <body>
   <%- include("includes/backgroundnoanimation.ejs"); %>
-  <div style="position: absolute; top: 20px; right: 30px; display: flex; gap: 10px;">
-  
-  <a href="/loginform">
-    <button style="
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      background-color: #00ff9f;
-      color: black;
-      cursor: pointer;
-      font-weight: bold;
-    ">
-      Login
-    </button>
-  </a>
 
-  <a href="/register">
-    <button style="
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      background-color: #00ff9f;
-      color: black;
-      cursor: pointer;
-      font-weight: bold;
-    ">
-      Register
-    </button>
-  </a>
-
-</div>
+  <!-- Top-right action buttons -->
+  <div style="position: absolute; top: 20px; right: 30px; display: flex; gap: 10px; z-index: 10;">
+    <% if (currentUser) { %>
+      <a href="/<%= currentUser.username %>/portfolio">
+        <button style="padding: 8px 16px; border: none; border-radius: 6px; background-color: #4da3ff; color: black; cursor: pointer; font-weight: bold;">
+          My Portfolio
+        </button>
+      </a>
+      <a href="/logout">
+        <button style="padding: 8px 16px; border: none; border-radius: 6px; background-color: #ff6b6b; color: white; cursor: pointer; font-weight: bold;">
+          Logout
+        </button>
+      </a>
+    <% } else { %>
+      <a href="/loginform">
+        <button style="padding: 8px 16px; border: none; border-radius: 6px; background-color: #00ff9f; color: black; cursor: pointer; font-weight: bold;">
+          Login
+        </button>
+      </a>
+      <a href="/register">
+        <button style="padding: 8px 16px; border: none; border-radius: 6px; background-color: #00ff9f; color: black; cursor: pointer; font-weight: bold;">
+          Register
+        </button>
+      </a>
+    <% } %>
+  </div>
 
   <div class="users-container">
     <h1 class="page-title">All Users</h1>
+
+    <!-- Success / error banners -->
+    <% if (typeof query !== 'undefined' && query.deleted === '1') { %>
+      <div class="alert-banner alert-success">✅ Your account has been permanently deleted.</div>
+    <% } %>
+    <% if (typeof query !== 'undefined' && query.deleteError) { %>
+      <div class="alert-banner alert-error">❌ <%= query.deleteError %></div>
+    <% } %>
 
     <table class="users-table">
       <thead>
@@ -43,6 +47,7 @@
           <th>Username</th>
           <th>Email</th>
           <th>Portfolio</th>
+          <th>Action</th>
         </tr>
       </thead>
 
@@ -52,15 +57,299 @@
             <td><%= user.username %></td>
             <td><%= user.email %></td>
             <td>
-              <a class="portfolio-link" href="/<%= user.username %>">
+              <a class="portfolio-link" href="/<%= user.username %>/publicportfolio">
                 View Portfolio
               </a>
+            </td>
+            <td>
+              <!-- Only show Delete button for the currently logged-in user -->
+              <% if (currentUser && currentUser.username === user.username) { %>
+                <button
+                  class="delete-btn"
+                  onclick="openDeleteModal('<%= user.username %>')"
+                >
+                  🗑 Delete Account
+                </button>
+              <% } else { %>
+                <span style="color: rgba(255,255,255,0.25); font-size: 13px;">—</span>
+              <% } %>
             </td>
           </tr>
         <% }) %>
       </tbody>
     </table>
   </div>
+
+
+  <!-- ============ DELETE CONFIRM MODAL ============ -->
+  <div id="deleteModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-icon">⚠️</div>
+      <h2 class="modal-title">Delete Account</h2>
+      <p class="modal-desc">
+        This will <strong>permanently delete</strong> your account along with all your
+        skills, projects, education, and portfolio data.<br><br>
+        Enter your password to confirm.
+      </p>
+
+      <form method="POST" action="/delete-account" id="deleteForm">
+        <div class="modal-input-wrap">
+          <input
+            type="password"
+            name="password"
+            id="confirmPassword"
+            placeholder="Enter your password"
+            class="modal-input"
+            required
+            autocomplete="current-password"
+          />
+          <span class="toggle-pw" onclick="togglePw()">👁</span>
+        </div>
+        <p id="pwError" class="pw-error" style="display:none;">Password cannot be empty.</p>
+
+        <div class="modal-actions">
+          <button type="button" class="modal-cancel-btn" onclick="closeDeleteModal()">Cancel</button>
+          <button type="submit" class="modal-delete-btn" onclick="return validatePw()">Yes, Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ============ INLINE STYLES ============ -->
+  <style>
+    /* Delete button */
+    .delete-btn {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: rgba(255, 80, 80, 0.15);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .delete-btn:hover {
+      background-color: rgba(255, 80, 80, 0.3);
+      transform: scale(1.03);
+    }
+
+    /* Alert banners */
+    .alert-banner {
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .alert-success {
+      background: rgba(0, 255, 159, 0.12);
+      border: 1px solid rgba(0, 255, 159, 0.4);
+      color: #00ff9f;
+    }
+    .alert-error {
+      background: rgba(255, 80, 80, 0.12);
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      color: #ff6b6b;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    /* Modal box */
+    .modal-box {
+      background: rgba(15, 15, 25, 0.97);
+      border: 1px solid rgba(255, 107, 107, 0.35);
+      border-radius: 16px;
+      padding: 36px 32px 28px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(255, 80, 80, 0.15);
+      animation: popIn 0.2s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .modal-icon { font-size: 40px; margin-bottom: 10px; }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ff6b6b;
+      margin: 0 0 10px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .modal-desc strong { color: #fff; }
+
+    /* Password input */
+    .modal-input-wrap {
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .modal-input {
+      width: 100%;
+      padding: 11px 40px 11px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.06);
+      color: white;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .modal-input:focus { border-color: #ff6b6b; }
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      opacity: 0.6;
+      user-select: none;
+    }
+    .toggle-pw:hover { opacity: 1; }
+
+    .pw-error {
+      color: #ff6b6b;
+      font-size: 12px;
+      text-align: left;
+      margin: 4px 0 14px 2px;
+    }
+
+    /* Buttons */
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .modal-cancel-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-cancel-btn:hover { background: rgba(255,255,255,0.08); }
+
+    .modal-delete-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, #ff4444, #cc2222);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .modal-delete-btn:hover { opacity: 0.9; transform: scale(1.02); }
+  </style>
+
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    // Open modal (only for logged-in user's own row)
+    function openDeleteModal(username) {
+      document.getElementById("confirmPassword").value = "";
+      document.getElementById("pwError").style.display = "none";
+      document.getElementById("deleteModal").style.display = "flex";
+      setTimeout(() => document.getElementById("confirmPassword").focus(), 100);
+    }
+
+    // Close modal
+    function closeDeleteModal() {
+      document.getElementById("deleteModal").style.display = "none";
+    }
+
+    // Close on backdrop click
+    document.getElementById("deleteModal").addEventListener("click", function (e) {
+      if (e.target === this) closeDeleteModal();
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeDeleteModal();
+    });
+
+    // Toggle password visibility
+    function togglePw() {
+      const inp = document.getElementById("confirmPassword");
+      inp.type = inp.type === "password" ? "text" : "password";
+    }
+
+    // Validate before submit
+    function validatePw() {
+      const pw = document.getElementById("confirmPassword").value.trim();
+      if (!pw) {
+        document.getElementById("pwError").style.display = "block";
+        return false;
+      }
+      return true;
+    }
+
+    // Show flash banners from query params
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const deleted = params.get("deleted");
+      const deleteError = params.get("deleteError");
+      const deleteTarget = params.get("deleteTarget");
+
+      if (deleted === "1") {
+        showBanner("✅ Account permanently deleted.", "success");
+      }
+      if (deleteError) {
+        showBanner("❌ " + decodeURIComponent(deleteError), "error");
+        // Re-open the modal if the user was the target
+        <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+          if (deleteTarget === "<%= currentUser.username %>") {
+            openDeleteModal(deleteTarget);
+          }
+        <% } %>
+      }
+
+      // Clean up URL after showing
+      if (deleted || deleteError) {
+        window.history.replaceState({}, "", "/allusers");
+      }
+    })();
+
+    function showBanner(msg, type) {
+      const banner = document.createElement("div");
+      banner.className = "alert-banner alert-" + (type === "success" ? "success" : "error");
+      banner.textContent = msg;
+      const container = document.querySelector(".users-container");
+      container.insertBefore(banner, container.querySelector("table"));
+      setTimeout(() => banner.remove(), 5000);
+    }
+  </script>
 
   <%- include("includes/jsscript.ejs"); %>
 </body>
