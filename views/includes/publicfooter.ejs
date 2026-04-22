@@ -7,10 +7,12 @@
 
         <!-- Social Links -->
         <div class="socialLinks">
-            <% (footer?.socialLinks || []).forEach(link => { %>
-                <a href="<%= link %>" target="_blank">
-                    <%= link %>
-                </a>
+             <% (footer?.socialLinks || []).forEach(social => { %>
+                <% if (social && social.url) { %>
+                    <a href="<%= social.url %>" target="_blank" rel="noopener">
+                        <%= social.name || social.url %>
+                    </a>
+                <% } %>
             <% }) %>
         </div>
 
