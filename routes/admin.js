@@ -68,10 +68,8 @@ router.post("/register", async (req, res) => {
             highlights: []
         });
 
-        await Education.create({
-            owner: user._id,
-            level: "Add your education"
-        });
+        // Education intentionally NOT seeded on register.
+        // The empty state in education.ejs shows "Add Education" automatically.
 
         await Footer.create({
             owner: user._id,
@@ -133,15 +131,11 @@ router.get("/logout", (req, res, next) => {
 
 
 // ================= DELETE ACCOUNT =================
-// Only a logged-in user can delete their own account.
-// Password must be confirmed before deletion.
-// All associated data is cascade-deleted.
 router.post("/delete-account", isLoggedIn, async (req, res, next) => {
     try {
         const { password } = req.body;
         const user = req.user;
 
-        // Verify password via passport-local-mongoose
         const verified = await new Promise((resolve) => {
             User.authenticate()(user.username, password, (err, result) => {
                 resolve(!err && !!result);
@@ -156,7 +150,6 @@ router.post("/delete-account", isLoggedIn, async (req, res, next) => {
 
         const userId = user._id;
 
-        // Cascade delete every piece of data tied to this user
         await Promise.all([
             Greeting.deleteMany({ owner: userId }),
             Skill.deleteMany({ owner: userId }),
@@ -165,10 +158,8 @@ router.post("/delete-account", isLoggedIn, async (req, res, next) => {
             Footer.deleteMany({ owner: userId }),
         ]);
 
-        // Delete the user account itself
         await User.findByIdAndDelete(userId);
 
-        // Log out and destroy session cleanly
         req.logout(function (err) {
             if (err) return next(err);
             req.session.destroy((err) => {
