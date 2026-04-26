@@ -29,6 +29,6 @@ const projectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   }
-});
+}, { timestamps: true });
 
 export default mongoose.model("Project", projectSchema);
