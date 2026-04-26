@@ -116,7 +116,7 @@ router.post("/editintro", isLoggedIn, attachUsername, async (req, res) => {
 // ================= EDIT EDUCATION =================
 router.get("/editeducation", isLoggedIn, async (req, res) => {
     const [education, footer] = await Promise.all([
-        Education.find({ owner: req.user._id }).sort({ createdAt: -1 }),
+        Education.find({ owner: req.user._id }).sort({ createdAt: 1 }),
         Footer.findOne({ owner: req.user._id })   // ← add this
     ]);
 

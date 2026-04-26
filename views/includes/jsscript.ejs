@@ -150,17 +150,13 @@ function applyLight(){
 <script>
 const educsection = document.querySelector("#outercoverEduc");
 
-// Start scrolled all the way to the right (oldest entries visible)
-// When section comes into view, auto-scroll left to reveal newest
 const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
         if(entry.isIntersecting){
-            // jump to far right instantly (oldest)
-            educsection.scrollLeft = educsection.scrollWidth;
-
-            // then smoothly scroll back to left (newest)
+            // oldest is leftmost, newest is rightmost
+            // auto scroll to right end so newest is visible
             setTimeout(()=>{
-                educsection.scrollTo({ left: 0, behavior: "smooth" });
+                educsection.scrollTo({ left: educsection.scrollWidth, behavior: "smooth" });
             }, 100);
         }
     });

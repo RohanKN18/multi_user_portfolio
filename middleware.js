@@ -49,7 +49,7 @@ export const loadUserPortfolio = async (req, res, next) => {
             Skill.find({ owner: user._id }),
             Project.find({ owner: user._id }).sort({ createdAt: -1 }),
             Greeting.findOne({ owner: user._id }),
-            Education.find({ owner: user._id }).sort({ createdAt: -1 }),
+            Education.find({ owner: user._id }).sort({ createdAt: 1 }),
             Footer.findOne({ owner: user._id })
         ]);
 
