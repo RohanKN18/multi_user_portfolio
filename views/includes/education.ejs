@@ -1,83 +1,71 @@
-  <section id="outercoverEduc">
-    <div id="educEditBtnContainer">
-      <a href="/<%= user.username %>/portfolio/editeducation" id="editEducBtn">Edit</a>
-    </div>
+<section id="outercoverEduc">
+  <div id="educEditBtnContainer">
+    <a href="/<%= user.username %>/portfolio/editeducation" id="editEducBtn">Edit</a>
+  </div>
 
+  <%
+  let realEducation = (education || []).filter(e => e.level || e.school || e.score);
 
-    <%
-let safeEducation = education || [];
-
-while (safeEducation.length < 1) {
-    safeEducation.push({
-        level: "",
-        school: "",
-        score: "",
-        isEmpty: true
-    });
-}
-%>
-    <% safeEducation.forEach((edu, index)=> { %>
-
+  if (realEducation.length === 0) {
+    // Empty state — show just one placeholder card
+  %>
     <div class="columnodd">
-
-      <% for(let i=1; i <=5; i++) { %>
-
-      <% let boxClass=i===1 ? 'boxone' : i===2 ? 'boxtwo' : i===3 ? 'boxthree' : i===4 ? 'boxfour' : i===5 ? 'boxfive' : ''; %>
-
-      <div class="box <%= boxClass %>">
-
-        <% if ( (index % 2===0 && i===2) || (index % 2 !==0 && i===4) ) { %>
-
-        <!-- FULL content box -->
-        <div class="specialbox">
-
-          <% if (!edu.level && !edu.school && !edu.score) { %>
-
-          <!-- EMPTY PRESERVE BOX -->
-          <p class="yoEducDetail">Add Education</p>
-
+      <% for(let i=1; i<=5; i++) { %>
+        <% let boxClass = i===1?'boxone':i===2?'boxtwo':i===3?'boxthree':i===4?'boxfour':'boxfive'; %>
+        <div class="box <%= boxClass %>">
+          <% if (i === 2) { %>
+            <div class="specialbox">
+              <p class="yoEducDetail">Add Education</p>
+            </div>
           <% } else { %>
-
-          <p class="yoEducDetail"><%= edu.level %></p>
-          <p class="yoEducDetail"><%= edu.school %></p>
-          <p class="yoEducDetail"><%= edu.score %></p>
-
+            <div class="leftinnerbox innerBox"></div>
+            <div class="rightinnerbox innerBox"></div>
           <% } %>
-
         </div>
-
-        <% } else { %>
-
-        <!-- normal split boxes -->
-        <div class="leftinnerbox innerBox"></div>
-        <div class="rightinnerbox innerBox"></div>
-
-        <% } %>
-
-      </div>
-
       <% } %>
-
+    </div>
+    <div class="columneven">
+      <% for(let i=1; i<=6; i++) { %>
+        <% let zigzagClass = 'evenbox' + (i===1?'one':i===2?'two':i===3?'three':i===4?'four':i===5?'five':'six'); %>
+        <div class="box <%= zigzagClass %> <%= (i===1||i===6)?'topbottombox':'' %>">
+          <div class="leftinnerbox innerBox"></div>
+          <div class="rightinnerbox innerBox"></div>
+        </div>
+      <% } %>
     </div>
 
+  <% } else {
+    realEducation.forEach((edu, index) => {
+  %>
+    <div class="columnodd">
+      <% for(let i=1; i<=5; i++) { %>
+        <% let boxClass = i===1?'boxone':i===2?'boxtwo':i===3?'boxthree':i===4?'boxfour':'boxfive'; %>
+        <div class="box <%= boxClass %>">
+          <% if ( (index%2===0 && i===2) || (index%2!==0 && i===4) ) { %>
+            <div class="specialbox">
+              <p class="yoEducDetail"><%= edu.level %></p>
+              <p class="yoEducDetail"><%= edu.school %></p>
+              <p class="yoEducDetail"><%= edu.score %></p>
+            </div>
+          <% } else { %>
+            <div class="leftinnerbox innerBox"></div>
+            <div class="rightinnerbox innerBox"></div>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
 
     <div class="columneven">
-
-      <% for(let i=1; i <=6; i++) { %>
-
-      <% let orderClass=i===1 ? 'one' : i===2 ? 'two' : i===3 ? 'three' : i===4 ? 'four' : i===5 ? 'five' : i===6
-          ? 'six'  : '' ; let zigzagClass=(index % 2===0 ? 'evenbox' : 'oddbox' ) + orderClass; %>
-
-      <div class="box <%= zigzagClass %> <%= (i === 1 || i === 6) ? 'topbottombox' : '' %>">
-        <div class="leftinnerbox innerBox"></div>
-        <div class="rightinnerbox innerBox"></div>
-      </div>
-
+      <% for(let i=1; i<=6; i++) { %>
+        <% let orderClass = i===1?'one':i===2?'two':i===3?'three':i===4?'four':i===5?'five':'six';
+           let zigzagClass = (index%2===0?'evenbox':'oddbox') + orderClass; %>
+        <div class="box <%= zigzagClass %> <%= (i===1||i===6)?'topbottombox':'' %>">
+          <div class="leftinnerbox innerBox"></div>
+          <div class="rightinnerbox innerBox"></div>
+        </div>
       <% } %>
-
     </div>
 
+  <% }); } %>
 
-    <% }); %>
-
-  </section>
+</section>
